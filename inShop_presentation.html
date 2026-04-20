@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>in{Shop} — AI Shopping Assistant</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&amp;family=DM+Sans:wght@300;400;500&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --obsidian: #1A1A1A;
+    --obsidian-2: #1A1A1A;
+    --obsidian-3: #1A1A1A;
+    --coral: #FF6B47;
+    --coral-soft: #F0A882;
+    --coral-pale: #FDE8DF;
+    --warm-white: #F5F0EB;
+    --warm-off: #FAFAF8;
+    --mid-gray: #888480;
+    --dark-text: #1A1A1A;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  html, body {
+    width: 100vw; height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+    background: var(--obsidian);
+    font-family: var(--sans);
+    cursor: default;
+    user-select: none;
+  }
+
+  body.active-light {
+    background: var(--warm-off);
+  }
+
+  .deck {
+    position: fixed;
+    inset: 0;
+    width: 100vw; height: 100vh;
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute !important;
+    inset: 0;
+    width: 100vw; height: 100vh;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+    transition: opacity 0.5s ease;
+  }
+  .slide.active {
+    opacity: 1;
+    pointer-events: all;
+    z-index: 10;
+  }
+
+  /* ── DARK SLIDES ─────────────────────────── */
+  .dark {
+    background: var(--obsidian);
+    color: var(--warm-white);
+  }
+  .dark2 {
+    background: var(--obsidian-2);
+    color: var(--warm-white);
+  }
+
+  /* ── LIGHT SLIDES ────────────────────────── */
+  .light {
+    background: var(--warm-off);
+    color: var(--dark-text);
+  }
+
+  /* ── NAV ─────────────────────────────────── */
+  .nav {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 100;
+    align-items: center;
+  }
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(245,240,235,0.42);
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .dot.on {
+    background: var(--coral);
+    width: 20px;
+    border-radius: 3px;
+  }
+  .nav-arr {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px; height: 44px;
+    border: 1px solid rgba(245,240,235,0.15);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    z-index: 100;
+    color: var(--warm-white);
+    font-size: 18px;
+    transition: border-color 0.2s, background 0.2s;
+    background: rgba(26,26,26,0.72);
+    backdrop-filter: blur(4px);
+  }
+  .nav-arr:hover { border-color: var(--coral); background: rgba(255,107,71,0.1); }
+  .nav-arr.left { left: 1.5rem; }
+  .nav-arr.right { right: 1.5rem; }
+  body.active-light .dot {
+    background: rgba(26,26,26,0.28);
+  }
+  body.active-light .dot.on {
+    background: var(--coral);
+  }
+  body.active-light .nav-arr {
+    color: var(--obsidian-2);
+    border-color: rgba(26,26,26,0.22);
+    background: rgba(250,250,248,0.74);
+  }
+
+  /* ── LABEL TAG ───────────────────────────── */
+  .label {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 1.25rem;
+  }
+  .label-light { color: var(--coral); }
+
+  /* ── CORAL ACCENT LINE ───────────────────── */
+  .accent-line {
+    width: 40px; height: 2px;
+    background: var(--coral);
+    margin-bottom: 2rem;
+  }
+
+  /* ═══════════════════════════════════════════
+     SLIDE 1 — COVER
+  ═══════════════════════════════════════════ */
+  #s1 {
+    justify-content: center;
+    align-items: flex-start;
+    padding: 10vh 8vw;
+    background: var(--obsidian);
+    overflow: hidden;
+    position: relative;
+  }
+  #s1 .bg-circle {
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,107,71,0.08);
+    right: -200px; top: -200px;
+  }
+  #s1 .bg-circle-2 {
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,107,71,0.05);
+    right: 100px; top: 100px;
+  }
+  #s1 .wordmark {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--coral);
+    margin-bottom: 3rem;
+    opacity: 0.9;
+  }
+  #s1 h1 {
+    font-family: var(--serif);
+    font-size: clamp(64px, 8vw, 108px);
+    font-weight: 900;
+    line-height: 0.95;
+    color: var(--warm-white);
+    margin-bottom: 2rem;
+    max-width: 700px;
+  }
+  #s1 h1 span { color: var(--coral); }
+  #s1 .sub {
+    font-size: 18px;
+    color: rgba(245,240,235,0.5);
+    font-weight: 300;
+    max-width: 400px;
+    line-height: 1.6;
+    margin-bottom: 4rem;
+  }
+  #s1 .tags {
+    display: flex; gap: 10px; flex-wrap: wrap;
+  }
+  #s1 .tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    padding: 6px 14px;
+    border: 1px solid rgba(255,107,71,0.3);
+    border-radius: 2px;
+    color: var(--coral-soft);
+  }
+
+  /* ═══════════════════════════════════════════
+     SLIDE 2 — THE PROBLEM (STATS)
+  ═══════════════════════════════════════════ */
+  #s2 {
+    padding: 6vh 8vw;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  #s2 .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 3rem;
+  }
+  #s2 .stat-box {
+    background: var(--obsidian-2);
+    padding: 3rem 2.5rem;
+    position: relative;
+    border-top: 2px solid transparent;
+    transition: border-color 0.3s;
+  }
+  #s2 .stat-box:hover { border-top-color: var(--coral); }
+  #s2 .stat-num {
+    font-family: var(--serif);
+    font-size: clamp(64px, 7vw, 96px);
+    font-weight: 900;
+    color: var(--coral);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  #s2 .stat-desc {
+    font-size: 17px;
+    color: rgba(245,240,235,0.6);
+    line-height: 1.5;
+    font-weight: 300;
+    max-width: 220px;
+  }
+
+  /* ═══════════════════════════════════════════
+     SLIDE 3 — ISSUES
+  ═══════════════════════════════════════════ */
+  #s3 {
+    padding: 6vh 8vw;
+    justify-content: center;
+  }
+  #s3 .issues-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  #s3 .issue-card {
+    background: var(--warm-off);
+    padding: 2.5rem 2rem;
+    border-radius: 3px;
+    border-bottom: 3px solid var(--coral-pale);
+    transition: border-color 0.3s;
+  }
+  #s3 .issue-card:hover { border-bottom-color: var(--coral); }
+  #s3 .issue-num {
+    font-family: var(--serif);
+    font-size: 72px;
+    font-weight: 900;
+    color: rgba(255,107,71,0.24);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  #s3 .issue-title {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 0.75rem;
+    font-family: var(--mono);
+  }
+  #s3 .issue-h {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+  #s3 .issue-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  #s3 .issue-list li {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.5;
+    padding-left: 16px;
+    position: relative;
+  }
+  #s3 .issue-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--coral-soft);
+  }
+
+  /* ═══════════════════════════════════════════
+     SLIDE 4 — SOLUTION
+  ═══════════════════════════════════════════ */
+  #s4 {
+    padding: 6vh 8vw;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    isolation: isolate;
+  }
+  #s4 > div {
+    position: relative;
+    z-index: 2;
+  }
+  #s4 .hero-text {
+    font-family: var(--serif);
+    font-size: clamp(44px, 5.2vw, 70px);
+    font-weight: 900;
+    color: var(--warm-white);
+    line-height: 1.1;
+    max-width: 600px;
+    margin-bottom: 1rem;
+  }
+  #s4 .hero-text span { color: var(--coral); }
+  #s4 .hero-sub {
+    font-size: 18px;
+    color: rgba(245,240,235,0.78);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 3.5rem;
+    font-weight: 300;
+  }
+  #s4 .features {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 1.5rem;
+    background: transparent;
+    border: 0;
+  }
+  #s4 .feat {
+    background: var(--obsidian-2);
+    padding: 2rem 1.75rem;
+    position: relative;
+    border: 1px solid rgba(245,240,235,0.12);
+    border-radius: 3px;
+  }
+  #s4 .feat-icon {
+    width: 38px;
+    height: 38px;
+    margin-bottom: 1.2rem;
+    position: relative;
+    color: var(--coral);
+  }
+  #s4 .feat-icon::before,
+  #s4 .feat-icon::after {
+    content: '';
+    position: absolute;
+    box-sizing: border-box;
+  }
+  #s4 .icon-voice::before {
+    width: 13px;
+    height: 22px;
+    left: 12px;
+    top: 3px;
+    border: 2px solid var(--coral);
+    border-radius: 8px;
+  }
+  #s4 .icon-voice::after {
+    width: 24px;
+    height: 18px;
+    left: 6px;
+    top: 14px;
+    border: 2px solid rgba(255,107,71,0.65);
+    border-top: 0;
+    border-radius: 0 0 14px 14px;
+  }
+  #s4 .icon-search::before {
+    width: 20px;
+    height: 20px;
+    left: 5px;
+    top: 5px;
+    border: 2px solid var(--coral);
+    border-radius: 50%;
+  }
+  #s4 .icon-search::after {
+    width: 14px;
+    height: 2px;
+    left: 22px;
+    top: 25px;
+    background: var(--coral);
+    transform: rotate(45deg);
+    transform-origin: left center;
+  }
+  #s4 .icon-integration::before {
+    width: 24px;
+    height: 24px;
+    left: 7px;
+    top: 7px;
+    border: 2px solid var(--coral);
+    border-radius: 50%;
+  }
+  #s4 .icon-integration::after {
+    width: 34px;
+    height: 34px;
+    left: 2px;
+    top: 2px;
+    border: 2px solid rgba(255,107,71,0.5);
+    border-radius: 4px;
+    transform: rotate(45deg);
+  }
+  #s4 .feat-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--warm-white);
+    margin-bottom: 0.5rem;
+  }
+  #s4 .feat-desc {
+    font-size: 14.5px;
+    color: rgba(245,240,235,0.72);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* ═══════════════════════════════════════════
+     SLIDE 5 — HOW IT WORKS
+  ═══════════════════════════════════════════ */
+  #s5 {
+    padding: 6vh 8vw;
+    justify-content: center;
+  }
+  #s5 .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 3rem;
+    position: relative;
+  }
+  #s5 .steps::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 10%;
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--coral) 0%, rgba(255,107,71,0.1) 100%);
+  }
+  #s5 .step {
+    padding: 0 1.5rem;
+    position: relative;
+  }
+  #s5 .step-dot {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--coral);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  #s5 .step:not(:first-child) .step-dot {
+    background: var(--obsidian-2);
+    border: 1px solid rgba(255,107,71,0.3);
+    color: var(--coral-soft);
+  }
+  #s5 .step-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--dark-text);
+    margin-bottom: 0.75rem;
+  }
+  #s5 .step-desc {
+    font-size: 14.5px;
+    color: #666;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* ═══════════════════════════════════════════
+     SLIDE 6 — VALUE PROPOSITION
+  ═══════════════════════════════════════════ */
+  #s6 {
+    padding: 6vh 8vw;
+    justify-content: center;
+  }
+  #s6 .vp-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  #s6 .vp-card {
+    background: var(--obsidian-2);
+    padding: 2.5rem 2rem;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+  #s6 .vp-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--coral);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  #s6 .vp-card:hover::before { transform: scaleX(1); }
+  #s6 .vp-num {
+    font-family: var(--serif);
+    font-size: 80px;
+    font-weight: 900;
+    color: rgba(255,107,71,0.18);
+    line-height: 1;
+    position: absolute;
+    top: 1rem; right: 1.5rem;
+  }
+  #s6 .vp-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 0.75rem;
+  }
+  #s6 .vp-title {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--warm-white);
+    margin-bottom: 1.25rem;
+    line-height: 1.2;
+  }
+  #s6 .vp-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  #s6 .vp-list li {
+    font-size: 14.5px;
+    color: rgba(245,240,235,0.55);
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.5;
+    font-weight: 300;
+  }
+  #s6 .vp-list li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--coral-soft);
+    font-size: 11px;
+  }
+
+  /* ═══════════════════════════════════════════
+     SLIDE 7 — MARKET OPPORTUNITY
+  ═══════════════════════════════════════════ */
+  #s7 {
+    padding: 6vh 8vw;
+    justify-content: center;
+  }
+  #s7 .market-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 1px;
+    background: rgba(255,107,71,0.15);
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+  }
+  #s7 .mbox {
+    background: var(--obsidian-2);
+    padding: 2.5rem 2rem;
+    text-align: center;
+  }
+  #s7 .mbox-num {
+    font-family: var(--serif);
+    font-size: clamp(48px, 5vw, 72px);
+    font-weight: 900;
+    color: rgba(255,107,71,0.82);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  #s7 .mbox-label {
+    font-size: 15px;
+    color: var(--warm-white);
+    margin-bottom: 0.4rem;
+  }
+  #s7 .mbox-sub {
+    font-size: 12px;
+    color: rgba(245,240,235,0.35);
+    font-family: var(--mono);
+  }
+  #s7 .verticals-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,240,235,0.4);
+    margin-bottom: 1rem;
+  }
+  #s7 .verticals {
+    display: flex; gap: 10px; flex-wrap: wrap;
+  }
+  #s7 .vert-pill {
+    padding: 8px 18px;
+    border: 1px solid rgba(255,107,71,0.25);
+    border-radius: 2px;
+    font-size: 14.5px;
+    color: var(--coral-soft);
+    font-weight: 300;
+  }
+
+  /* ═══════════════════════════════════════════
+     SLIDE 8 — LOCAL CONTEXT
+  ═══════════════════════════════════════════ */
+  #s8 {
+    justify-content: center;
+    align-items: center;
+    padding: 8vh 8vw;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    isolation: isolate;
+  }
+  #s8 .big-text {
+    font-family: var(--serif);
+    font-size: clamp(42px, 5.2vw, 72px);
+    font-weight: 900;
+    color: var(--warm-white);
+    line-height: 1.2;
+    max-width: 700px;
+    margin: 0 auto 1.5rem;
+  }
+  #s8 .big-text span { color: var(--coral); }
+  #s8 .sub {
+    font-size: 20px;
+    color: rgba(245,240,235,0.76);
+    font-weight: 300;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  #s8 .bracket {
+    font-family: var(--mono);
+    font-size: 80px;
+    color: rgba(255,107,71,0.06);
+    position: absolute;
+    font-weight: 400;
+    z-index: 0;
+  }
+  #s8 .bracket.left { left: 5vw; top: 50%; transform: translateY(-50%); }
+  #s8 .bracket.right { right: 5vw; top: 50%; transform: translateY(-50%); }
+  #s8 .close-label,
+  #s8 .big-text,
+  #s8 .sub {
+    position: relative;
+    z-index: 2;
+  }
+  #s8 .close-label {
+    color: rgba(245,240,235,0.72) !important;
+  }
+
+  /* ═══════════════════════════════════════════
+     SLIDE 9 — PRICING
+  ═══════════════════════════════════════════ */
+  #s9 {
+    padding: 6vh 8vw;
+    justify-content: center;
+  }
+  #s9 .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+    align-items: center;
+  }
+  #s9 .price-card {
+    background: var(--warm-off);
+    padding: 2.5rem 2rem;
+    border-radius: 3px;
+    border: 1px solid rgba(26,26,26,0.08);
+    position: relative;
+    transition: transform 0.3s;
+  }
+  #s9 .price-card:hover { transform: translateY(-4px); }
+  #s9 .price-card.featured {
+    background: var(--obsidian-2);
+    color: var(--warm-white);
+    border: none;
+  }
+  #s9 .price-card.pro {
+    transform: translateY(-10px);
+    border: 1px solid rgba(255,107,71,0.55);
+    box-shadow: 0 18px 40px rgba(26,26,26,0.16);
+  }
+  #s9 .price-card.pro:hover { transform: translateY(-14px); }
+  #s9 .price-card.pro::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--coral);
+  }
+  #s9 .price-card.featured .price-tier { color: var(--coral); }
+  #s9 .price-card.featured .price-desc { color: rgba(245,240,235,0.5); }
+  #s9 .price-card.featured .price-list li { color: rgba(245,240,235,0.7); }
+  #s9 .price-card.featured .price-list li::before { color: var(--coral); }
+  #s9 .price-tier {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-bottom: 0.75rem;
+  }
+  #s9 .price-amount {
+    font-family: var(--serif);
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--dark-text);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+  #s9 .price-card.featured .price-amount { color: var(--warm-white); }
+  #s9 .price-card.pro .price-amount {
+    color: var(--coral);
+    font-size: 64px;
+  }
+  #s9 .price-period {
+    font-size: 13px;
+    color: var(--mid-gray);
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+  #s9 .price-divider {
+    height: 1px;
+    background: rgba(26,26,26,0.09);
+    margin-bottom: 1.5rem;
+  }
+  #s9 .price-card.featured .price-divider { background: rgba(255,255,255,0.08); }
+  #s9 .price-desc {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-family: var(--mono);
+    color: var(--mid-gray);
+    margin-bottom: 1rem;
+  }
+  #s9 .price-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  #s9 .price-list li {
+    font-size: 14.5px;
+    color: #555;
+    padding-left: 18px;
+    position: relative;
+    line-height: 1.4;
+  }
+  #s9 .price-list li::before {
+    content: '✓';
+    position: absolute; left: 0;
+    color: var(--coral);
+    font-size: 11px;
+  }
+
+  /* ═══════════════════════════════════════════
+     SLIDE 10 — GO TO MARKET
+  ═══════════════════════════════════════════ */
+  #s10 {
+    padding: 6vh 8vw;
+    justify-content: center;
+  }
+  #s10 .gtm-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 0;
+    margin-top: 2.5rem;
+  }
+  #s10 .gtm-phase {
+    padding: 2.5rem 2rem;
+    border-left: 1px solid rgba(255,107,71,0.15);
+    position: relative;
+  }
+  #s10 .gtm-phase:first-child { border-left: none; }
+  #s10 .gtm-phase::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 2px;
+    background: transparent;
+    transition: background 0.3s;
+  }
+  #s10 .gtm-phase:hover::before { background: var(--coral); }
+  #s10 .phase-num {
+    font-family: var(--serif);
+    font-size: 64px;
+    font-weight: 900;
+    color: rgba(245,240,235,0.18);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  #s10 .phase-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 0.5rem;
+  }
+  #s10 .phase-title {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--warm-white);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  #s10 .phase-sub {
+    font-size: 12px;
+    font-family: var(--mono);
+    color: var(--coral-soft);
+    margin-bottom: 1.25rem;
+  }
+  #s10 .phase-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  #s10 .phase-list li {
+    font-size: 14.5px;
+    color: rgba(245,240,235,0.5);
+    padding-left: 14px;
+    position: relative;
+    font-weight: 300;
+    line-height: 1.4;
+  }
+  #s10 .phase-list li::before {
+    content: '·';
+    position: absolute; left: 0;
+    color: var(--coral-soft);
+    font-size: 16px;
+    line-height: 1.1;
+  }
+
+  /* ═══════════════════════════════════════════
+     SLIDE 11 — ROADMAP
+  ═══════════════════════════════════════════ */
+  #s11 {
+    padding: 6vh 8vw;
+    justify-content: center;
+    overflow: hidden;
+  }
+  #s11 .timeline {
+    margin-top: 3rem;
+    position: relative;
+  }
+  #s11 .tl-track {
+    height: 1px;
+    background: rgba(255,107,71,0.2);
+    position: relative;
+    margin-bottom: 0;
+  }
+  #s11 .tl-fill {
+    position: absolute;
+    top: 0; left: 0;
+    height: 1px;
+    width: 20%;
+    background: var(--coral);
+  }
+  #s11 .tl-items {
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    gap: 0;
+  }
+  #s11 .tl-item {
+    padding: 0 0.7rem;
+    position: relative;
+  }
+  #s11 .tl-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: rgba(255,107,71,0.2);
+    border: 1px solid rgba(255,107,71,0.3);
+    margin-bottom: 1rem;
+    position: relative;
+    top: -4px;
+  }
+  #s11 .tl-item.active .tl-dot {
+    background: var(--coral);
+    border-color: var(--coral);
+    box-shadow: 0 0 0 4px rgba(255,107,71,0.15);
+  }
+  #s11 .tl-quarter {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--coral);
+    margin-bottom: 0.65rem;
+  }
+  #s11 .tl-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--warm-white);
+    margin-bottom: 0.85rem;
+    line-height: 1.3;
+  }
+  #s11 .tl-details {
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  #s11 .tl-detail {
+    font-size: 14px;
+    color: rgba(245,240,235,0.4);
+    font-weight: 300;
+    line-height: 1.45;
+  }
+  #s11 .tl-item.future .tl-quarter { color: rgba(255,107,71,0.35); }
+  #s11 .tl-item.future .tl-title { color: rgba(245,240,235,0.35); }
+
+  /* ═══════════════════════════════════════════
+     SLIDE 12 — TEAM
+  ═══════════════════════════════════════════ */
+  #s12 {
+    padding: 6vh 8vw;
+    justify-content: center;
+  }
+  #s12 .team-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 2.5rem;
+  }
+  #s12 .team-section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255,107,71,0.2);
+  }
+  #s12 .team-members {
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  #s12 .member {
+    display: flex; align-items: center; gap: 1rem;
+  }
+  #s12 .avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--obsidian-3);
+    border: 1px solid rgba(255,107,71,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--coral-soft);
+    flex-shrink: 0;
+  }
+  #s12 .member-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--dark-text);
+    margin-bottom: 2px;
+  }
+  #s12 .member-role {
+    font-size: 13px;
+    color: var(--mid-gray);
+    font-weight: 300;
+  }
+
+  /* ═══════════════════════════════════════════
+     SLIDE 13 — CLOSE
+  ═══════════════════════════════════════════ */
+  #s13 {
+    justify-content: center;
+    align-items: center;
+    padding: 8vh 8vw;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  #s13 .close-label {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    color: rgba(245,240,235,0.72);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+  #s13 h2 {
+    font-family: var(--serif);
+    font-size: clamp(56px, 8vw, 100px);
+    font-weight: 900;
+    color: var(--warm-white);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+  #s13 h2 span { color: var(--coral); }
+  #s13 .close-sub {
+    font-size: 20px;
+    color: rgba(245,240,235,0.76);
+    font-weight: 300;
+    margin-bottom: 3rem;
+  }
+  #s13 .coral-line {
+    width: 80px; height: 2px;
+    background: var(--coral);
+    margin: 0 auto;
+  }
+  #s13 .bg-word {
+    position: absolute;
+    font-family: var(--serif);
+    font-size: 30vw;
+    font-weight: 900;
+    color: rgba(255,107,71,0.03);
+    bottom: -5vw;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 0;
+  }
+  #s13 .close-label,
+  #s13 h2,
+  #s13 .close-sub,
+  #s13 .coral-line {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ── SLIDE HEADER AREA ───────────────────── */
+  .slide-header {
+    margin-bottom: 0;
+  }
+  .slide-h {
+    font-family: var(--serif);
+    font-size: clamp(32px, 3.8vw, 50px);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+  .slide-h span { color: var(--coral); }
+  .dark .slide-h { color: var(--warm-white); }
+  .light .slide-h { color: var(--dark-text); }
+
+  /* ── PROGRESS BAR ────────────────────────── */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: var(--coral);
+    transition: width 0.5s ease;
+    z-index: 200;
+  }
+
+  /* ── SLIDE COUNTER ───────────────────────── */
+  .counter {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(245,240,235,0.68);
+    z-index: 100;
+    letter-spacing: 0.1em;
+  }
+  body.active-light .counter {
+    color: rgba(26,26,26,0.72);
+  }
+
+  .slide > [style*="padding"] {
+    padding: 0 !important;
+  }
+
+  /* Viewport anchoring for slides that were being pushed below the visible area. */
+  #s2,
+  #s4,
+  #s8,
+  #s13 {
+    display: block;
+    padding: 0;
+  }
+
+  #s2 > div:first-child {
+    position: absolute;
+    top: 12vh;
+    left: 8vw;
+    right: 8vw;
+    z-index: 2;
+  }
+  #s2 .stat-grid {
+    position: absolute;
+    top: 55vh;
+    left: 8vw;
+    right: 8vw;
+    z-index: 2;
+    margin: 0;
+  }
+
+  #s4 > div:first-child {
+    position: absolute;
+    top: 12vh;
+    left: 8vw;
+    right: 8vw;
+    z-index: 2;
+  }
+  #s4 .features {
+    position: absolute;
+    top: 62vh;
+    left: 8vw;
+    right: 8vw;
+    z-index: 2;
+    margin: 0;
+  }
+
+  #s8 .close-label {
+    position: absolute !important;
+    top: 22vh;
+    left: 8vw;
+    right: 8vw;
+    z-index: 2;
+    margin: 0 !important;
+  }
+  #s8 .big-text {
+    position: absolute;
+    top: 31vh;
+    left: 8vw;
+    right: 8vw;
+    z-index: 2;
+    max-width: none;
+    margin: 0;
+  }
+  #s8 .sub {
+    position: absolute;
+    top: 70vh;
+    left: 8vw;
+    right: 8vw;
+    z-index: 2;
+    max-width: none;
+    margin: 0;
+  }
+
+  #s13 .close-label {
+    position: absolute;
+    top: 24vh;
+    left: 8vw;
+    right: 8vw;
+    z-index: 2;
+    margin: 0;
+  }
+  #s13 h2 {
+    position: absolute;
+    top: 34vh;
+    left: 8vw;
+    right: 8vw;
+    z-index: 2;
+    margin: 0;
+  }
+  #s13 .close-sub {
+    position: absolute;
+    top: 64vh;
+    left: 8vw;
+    right: 8vw;
+    z-index: 2;
+    margin: 0;
+  }
+  #s13 .coral-line {
+    position: absolute;
+    top: 74vh;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    margin: 0;
+  }
+
+  /* RESPONSIVE tweaks */
+  @media (max-width: 900px) {
+    #s2 .stat-grid, #s3 .issues-grid, #s4 .features,
+    #s6 .vp-grid, #s7 .market-grid, #s9 .pricing-grid,
+    #s10 .gtm-grid, #s12 .team-cols { grid-template-columns: 1fr; }
+    #s5 .steps, #s11 .tl-items { grid-template-columns: repeat(2,1fr); }
+    #s5 .steps::before { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<div class="deck" id="deck">
+
+  <!-- ── S1 COVER ───────────────────────────── -->
+  <div class="slide dark active" id="s1">
+    <div class="bg-circle"></div>
+    <div class="bg-circle-2"></div>
+    <div class="wordmark">in{Shop}</div>
+    <h1>AI Expert<br>in Every<br><span>Aisle.</span></h1>
+    <p class="sub">AI Shopping Assistant for Physical Retail.<br>No app. No waiting. No lost sales.</p>
+    <div class="tags">
+      <span class="tag">Retail Intelligence</span>
+      <span class="tag">Powered by AI</span>
+      <span class="tag">Voice &amp; Text</span>
+    </div>
+  </div>
+
+  <!-- ── S2 THE PROBLEM ─────────────────────── -->
+  <div class="slide dark" id="s2">
+    <div style="padding: 5vh 8vw 0;">
+      <div class="label">The Problem</div>
+      <h2 class="slide-h">The store experience<br>is <span>broken.</span></h2>
+      <p style="font-size:17px; color:rgba(245,240,235,0.5); font-weight:300; max-width:640px; line-height:1.7; margin-top:0.75rem;">In high-consideration purchases — electronics, appliances, automotive — customers arrive with questions. The result: lost sales, abandoned carts, customers who leave to "think about it" and never return.</p>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-box">
+        <div class="stat-num">96%</div>
+        <div class="stat-desc">left without buying</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">67%</div>
+        <div class="stat-desc">couldn't find the right product</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">39%</div>
+        <div class="stat-desc">claim they received poor customer service</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── S3 ISSUES ──────────────────────────── -->
+  <div class="slide light" id="s3">
+    <div style="padding: 5vh 8vw 0;">
+      <div class="label label-light">Issues in the Wild</div>
+      <h2 class="slide-h">Three pain points.<br>One <span>solution.</span></h2>
+    </div>
+    <div style="padding: 0 8vw;" class="issues-grid">
+      <div class="issue-card">
+        <div class="issue-num">01</div>
+        <div class="issue-title">Customer Experience</div>
+        <div class="issue-h">"I need a laptop for SolidWorks"</div>
+        <ul class="issue-list">
+          <li>Floor staff aren't always familiar with every use case</li>
+          <li>Occupied personnel can't provide an individual approach</li>
+          <li>Not every member of staff has great soft skills</li>
+        </ul>
+      </div>
+      <div class="issue-card">
+        <div class="issue-num">02</div>
+        <div class="issue-title">Retail Intelligence</div>
+        <div class="issue-h">"We don't have that right now"</div>
+        <ul class="issue-list">
+          <li>Retailers struggle to keep up with trends</li>
+          <li>Procurement is often done in the blind</li>
+        </ul>
+      </div>
+      <div class="issue-card">
+        <div class="issue-num">03</div>
+        <div class="issue-title">Marketing</div>
+        <div class="issue-h">"Our laptop has the best keyboard"</div>
+        <ul class="issue-list">
+          <li>Retailers often miss the most important selling points</li>
+          <li>Staff has issues with upselling</li>
+          <li>Hard to push higher-margin products to customers</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── S4 SOLUTION ────────────────────────── -->
+  <div class="slide dark" id="s4">
+    <div style="padding: 5vh 8vw 2rem;">
+      <div class="label">The Solution</div>
+      <h2 class="hero-text">An AI expert,<br>available in <span>every aisle.</span></h2>
+      <p class="hero-sub">in{Shop} is deployed on tablet totems inside physical stores. Customers interact by voice or text to receive instant, deeply researched product guidance — no app, no waiting.</p>
+    </div>
+    <div style="padding: 0 8vw;" class="features">
+      <div class="feat">
+        <div class="feat-icon icon-voice" aria-hidden="true"></div>
+        <div class="feat-title">Voice &amp; Text</div>
+        <div class="feat-desc">Seamless switching at any point in the session</div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon icon-search" aria-hidden="true"></div>
+        <div class="feat-title">Deep Research</div>
+        <div class="feat-desc">LLMs + RAG + agentic web search on live catalogs</div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon icon-integration" aria-hidden="true"></div>
+        <div class="feat-title">ERP Integration</div>
+        <div class="feat-desc">Connects to existing systems — no manual data entry</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── S5 HOW IT WORKS ────────────────────── -->
+  <div class="slide light" id="s5">
+    <div style="padding: 5vh 8vw 0;">
+      <div class="label label-light">How It Works</div>
+      <h2 class="slide-h">Simple to use.<br><span>Powerful</span> underneath.</h2>
+    </div>
+    <div style="padding: 0 8vw;" class="steps">
+      <div class="step">
+        <div class="step-dot">1</div>
+        <div class="step-title">Customer Interacts</div>
+        <div class="step-desc">Voice or text on the in-store totem. No app download, no registration required.</div>
+      </div>
+      <div class="step">
+        <div class="step-dot">2</div>
+        <div class="step-title">AI Researches in Real Time</div>
+        <div class="step-desc">LLMs query the live product catalog via RAG and agentic search for accurate, contextual answers.</div>
+      </div>
+      <div class="step">
+        <div class="step-dot">3</div>
+        <div class="step-title">Guidance is Delivered</div>
+        <div class="step-desc">The assistant compares options, answers follow-up questions, and guides the customer to a decision.</div>
+      </div>
+      <div class="step">
+        <div class="step-dot">4</div>
+        <div class="step-title">Data is Captured</div>
+        <div class="step-desc">Every interaction feeds the analytics dashboard — demand signals, feature priorities, inventory gaps.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── S6 VALUE PROP ──────────────────────── -->
+  <div class="slide dark2" id="s6">
+    <div style="padding: 5vh 8vw 0;">
+      <div class="label">Value Proposition</div>
+      <h2 class="slide-h">Three ways in{Shop}<br>creates <span>value.</span></h2>
+    </div>
+    <div style="padding: 0 8vw;" class="vp-grid">
+      <div class="vp-card">
+        <div class="vp-num">01</div>
+        <div class="vp-tag">Customer Experience</div>
+        <div class="vp-title">The Assistant</div>
+        <ul class="vp-list">
+          <li>Expert guidance at the point of decision</li>
+          <li>Handles complex, multi-criteria comparisons</li>
+          <li>Reduces routine load on floor staff</li>
+          <li>Available across all store hours</li>
+        </ul>
+      </div>
+      <div class="vp-card">
+        <div class="vp-num">02</div>
+        <div class="vp-tag">Retail Intelligence</div>
+        <div class="vp-title">Analytics</div>
+        <ul class="vp-list">
+          <li>Interaction clustering surfaces demand signals</li>
+          <li>Identifies inventory and assortment gaps</li>
+          <li>Reveals features that drive decisions</li>
+          <li>Dashboard with usage &amp; trend reports</li>
+        </ul>
+      </div>
+      <div class="vp-card">
+        <div class="vp-num">03</div>
+        <div class="vp-tag">Retailer Revenue</div>
+        <div class="vp-title">Marketing Layer</div>
+        <ul class="vp-list">
+          <li>Configurable product prioritisation &amp; upsell</li>
+          <li>Promotes featured or high-margin items</li>
+          <li>Supplier-funded placement opportunities</li>
+          <li>Campaigns updated without hardware changes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── S7 MARKET ──────────────────────────── -->
+  <div class="slide dark" id="s7">
+    <div style="padding: 5vh 8vw 0;">
+      <div class="label">Market Opportunity</div>
+      <h2 class="slide-h">A large,<br><span>fast-moving</span> market.</h2>
+    </div>
+    <div style="padding: 0 8vw;">
+      <div class="market-grid">
+        <div class="mbox">
+          <div class="mbox-num">$40B</div>
+          <div class="mbox-label">AI in Retail by 2030</div>
+          <div class="mbox-sub">23% CAGR · Grand View Research</div>
+        </div>
+        <div class="mbox">
+          <div class="mbox-num">$26B</div>
+          <div class="mbox-label">Retail Kiosk Market by 2032</div>
+          <div class="mbox-sub">$14B today · 8% CAGR</div>
+        </div>
+        <div class="mbox">
+          <div class="mbox-num">42%</div>
+          <div class="mbox-label">Retailers piloting AI</div>
+          <div class="mbox-sub">Additional 34% in pilot/assessment</div>
+        </div>
+      </div>
+      <div class="verticals-label" style="margin-top:2rem;">Target Verticals</div>
+      <div class="verticals">
+        <div class="vert-pill">Consumer Electronics</div>
+        <div class="vert-pill">Hardware &amp; DIY</div>
+        <div class="vert-pill">Home Appliances</div>
+        <div class="vert-pill">Automotive Showrooms</div>
+        <div class="vert-pill">Specialised Retail</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── S8 LOCAL CONTEXT ───────────────────── -->
+  <div class="slide dark2" id="s8">
+    <span class="bracket left">{</span>
+    <span class="bracket right">}</span>
+    <p class="close-label" style="font-family:var(--mono);font-size:12px;letter-spacing:.15em;color:rgba(245,240,235,.3);text-transform:uppercase;margin-bottom:2rem;">But locally</p>
+    <h2 class="big-text">Outdated webshops.<br>Uninformed staff.<br><span>Unsatisfied customers.</span></h2>
+    <p class="sub">The Croatian market is ready — and no one has filled this gap yet.</p>
+  </div>
+
+  <!-- ── S9 PRICING ─────────────────────────── -->
+  <div class="slide light" id="s9">
+    <div style="padding: 5vh 8vw 0;">
+      <div class="label label-light">Business Plan</div>
+      <h2 class="slide-h">Tailored plans for<br>retailers of <span>any size.</span></h2>
+    </div>
+    <div style="padding: 0 8vw;" class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier">Standard</div>
+        <div class="price-amount">400€</div>
+        <div class="price-period">/month</div>
+        <div class="price-divider"></div>
+        <div class="price-desc">Customer experience</div>
+        <ul class="price-list">
+          <li>Up to 5 devices</li>
+          <li>1,000 sessions per device/month</li>
+          <li>Pay-as-you-go after limit</li>
+          <li>Monthly support</li>
+        </ul>
+      </div>
+      <div class="price-card">
+        <div class="price-tier">Plus</div>
+        <div class="price-amount">600€</div>
+        <div class="price-period">/month</div>
+        <div class="price-divider"></div>
+        <div class="price-desc">Retail intelligence</div>
+        <ul class="price-list">
+          <li>Up to 20 devices</li>
+          <li>2,000 sessions per device/month</li>
+          <li>Weekly support</li>
+          <li>Advanced analytics</li>
+        </ul>
+      </div>
+      <div class="price-card featured pro">
+        <div class="price-tier">Pro</div>
+        <div class="price-amount">700€</div>
+        <div class="price-period">/month</div>
+        <div class="price-divider"></div>
+        <div class="price-desc">Retailer revenue</div>
+        <ul class="price-list">
+          <li>Unlimited devices</li>
+          <li>Higher session limits</li>
+          <li>24/7 support</li>
+          <li>Custom features &amp; analytics</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── S10 GO TO MARKET ───────────────────── -->
+  <div class="slide dark" id="s10">
+    <div style="padding: 5vh 8vw 0;">
+      <div class="label">Go-to-Market</div>
+      <h2 class="slide-h">The sky is the limit —<br>but we aim <span>smart.</span></h2>
+    </div>
+    <div style="padding: 0 8vw;" class="gtm-grid">
+      <div class="gtm-phase">
+        <div class="phase-num">01</div>
+        <div class="phase-label">Beachhead</div>
+        <div class="phase-title">Croatia</div>
+        <div class="phase-sub">€2M market</div>
+        <ul class="phase-list">
+          <li>POC phase — Chipoteka</li>
+          <li>First to fill the market gap</li>
+          <li>Scale to other chains</li>
+          <li>280–550 viable locations</li>
+        </ul>
+      </div>
+      <div class="gtm-phase">
+        <div class="phase-num">02</div>
+        <div class="phase-label">Regional Expansion</div>
+        <div class="phase-title">Neighbouring Markets</div>
+        <div class="phase-sub">€6M market</div>
+        <ul class="phase-list">
+          <li>Slovenia, BiH, Serbia…</li>
+          <li>Assert regional leadership in retail AI</li>
+        </ul>
+      </div>
+      <div class="gtm-phase">
+        <div class="phase-num">03</div>
+        <div class="phase-label">Expansion</div>
+        <div class="phase-title">CEE Platform</div>
+        <div class="phase-sub">€15M market</div>
+        <ul class="phase-list">
+          <li>Austria, Czech Republic, Poland…</li>
+          <li>Positioning on global market</li>
+          <li>3,000–8,000 potential locations</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── S11 ROADMAP ────────────────────────── -->
+  <div class="slide dark2" id="s11">
+    <div style="padding: 5vh 8vw 0;">
+      <div class="label">Roadmap</div>
+      <h2 class="slide-h">How we aim<br>to <span>scale.</span></h2>
+    </div>
+    <div style="padding: 0 8vw;" class="timeline">
+      <div class="tl-track"><div class="tl-fill"></div></div>
+      <div class="tl-items">
+        <div class="tl-item active">
+          <div class="tl-dot"></div>
+          <div class="tl-quarter">Q2 2026</div>
+          <div class="tl-title">Pre-seed / Ideation</div>
+          <div class="tl-details">
+            <div class="tl-detail">MVP specification</div>
+            <div class="tl-detail">Team formation</div>
+            <div class="tl-detail">Legal registration</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-quarter">Q3 2026</div>
+          <div class="tl-title">MVP Development</div>
+          <div class="tl-details">
+            <div class="tl-detail">Device prototype</div>
+            <div class="tl-detail">AI module v1</div>
+            <div class="tl-detail">CMS basics</div>
+          </div>
+        </div>
+        <div class="tl-item future">
+          <div class="tl-dot"></div>
+          <div class="tl-quarter">Q4 2026</div>
+          <div class="tl-title">Pilot Program</div>
+          <div class="tl-details">
+            <div class="tl-detail">3–5 ZG locations</div>
+            <div class="tl-detail">UX iteration</div>
+            <div class="tl-detail">Data collection</div>
+          </div>
+        </div>
+        <div class="tl-item future">
+          <div class="tl-dot"></div>
+          <div class="tl-quarter">Q1–Q2 2027</div>
+          <div class="tl-title">Commercial Launch</div>
+          <div class="tl-details">
+            <div class="tl-detail">Seed round</div>
+            <div class="tl-detail">20–50 HR locations</div>
+            <div class="tl-detail">Sales team</div>
+          </div>
+        </div>
+        <div class="tl-item future">
+          <div class="tl-dot"></div>
+          <div class="tl-quarter">Q3'27–Q1'28</div>
+          <div class="tl-title">HR Expansion</div>
+          <div class="tl-details">
+            <div class="tl-detail">150+ locations</div>
+            <div class="tl-detail">DIY &amp; auto verticals</div>
+            <div class="tl-detail">Distribution partners</div>
+          </div>
+        </div>
+        <div class="tl-item future">
+          <div class="tl-dot"></div>
+          <div class="tl-quarter">Q2 2028+</div>
+          <div class="tl-title">Regional Expansion</div>
+          <div class="tl-details">
+            <div class="tl-detail">Slovenia · Serbia · BiH</div>
+            <div class="tl-detail">Series A round</div>
+          </div>
+        </div>
+        <div class="tl-item future">
+          <div class="tl-dot"></div>
+          <div class="tl-quarter">2029+</div>
+          <div class="tl-title">CEE Platform</div>
+          <div class="tl-details">
+            <div class="tl-detail">5+ markets</div>
+            <div class="tl-detail">AdTech engine</div>
+            <div class="tl-detail">1,000+ locations</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── S12 TEAM ───────────────────────────── -->
+  <div class="slide light" id="s12">
+    <div style="padding: 5vh 8vw 0;">
+      <div class="label label-light">The Team</div>
+      <h2 class="slide-h">Building the <span>vision.</span></h2>
+    </div>
+    <div style="padding: 0 8vw;" class="team-cols">
+      <div>
+        <div class="team-section-label">Management</div>
+        <div class="team-members">
+          <div class="member"><div class="avatar">NB</div><div><div class="member-name">Nikola Bakula</div><div class="member-role">CEO</div></div></div>
+          <div class="member"><div class="avatar">BB</div><div><div class="member-name">Berislav Boras</div><div class="member-role">Strategic Advisor</div></div></div>
+          <div class="member"><div class="avatar">MM</div><div><div class="member-name">Marko Mazanik</div><div class="member-role">Strategic Advisor</div></div></div>
+          <div class="member"><div class="avatar">JP</div><div><div class="member-name">Josip Pavković</div><div class="member-role">Strategic Advisor</div></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="team-section-label">Tech</div>
+        <div class="team-members">
+          <div class="member"><div class="avatar">MP</div><div><div class="member-name">Matija Pavlović</div><div class="member-role">AI Engineer</div></div></div>
+          <div class="member"><div class="avatar">ZŽ</div><div><div class="member-name">Zvonimir Žunić</div><div class="member-role">Software Engineer</div></div></div>
+          <div class="member"><div class="avatar">MM</div><div><div class="member-name">Marcel Macukić</div><div class="member-role">Software Engineer</div></div></div>
+          <div class="member"><div class="avatar">FP</div><div><div class="member-name">Filip Perušić</div><div class="member-role">Project Manager</div></div></div>
+          <div class="member"><div class="avatar">EB</div><div><div class="member-name">Eva Boras</div><div class="member-role">QA Engineer</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── S13 CLOSE ──────────────────────────── -->
+  <div class="slide dark" id="s13">
+    <div class="bg-word">Shop</div>
+    <div class="close-label">in{Shop} · 2026</div>
+    <h2>Thank<br><span>You.</span></h2>
+    <p class="close-sub">Any questions?</p>
+    <div class="coral-line"></div>
+  </div>
+
+</div>
+
+<!-- NAV -->
+<button class="nav-arr left" id="prev" aria-label="Previous">&#8592;</button>
+<button class="nav-arr right" id="next" aria-label="Next">&#8594;</button>
+<div class="nav" id="nav-dots"></div>
+<div class="counter" id="counter"></div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.getElementById('nav-dots');
+  const counter = document.getElementById('counter');
+  const progress = document.getElementById('progress');
+  let cur = 0;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' on' : '');
+    d.addEventListener('click', () => go(i));
+    dots.appendChild(d);
+  });
+
+  function go(n) {
+    slides[cur].classList.remove('active');
+    dots.children[cur].classList.remove('on');
+    cur = (n + slides.length) % slides.length;
+    slides[cur].classList.add('active');
+    dots.children[cur].classList.add('on');
+    document.body.classList.toggle('active-light', slides[cur].classList.contains('light'));
+    counter.textContent = (cur + 1).toString().padStart(2,'0') + ' / ' + slides.length.toString().padStart(2,'0');
+    progress.style.width = ((cur + 1) / slides.length * 100) + '%';
+  }
+
+  document.getElementById('prev').addEventListener('click', () => go(cur - 1));
+  document.getElementById('next').addEventListener('click', () => go(cur + 1));
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') go(cur + 1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(cur - 1);
+  });
+
+  // Touch swipe
+  let tx = 0;
+  document.addEventListener('touchstart', e => tx = e.touches[0].clientX);
+  document.addEventListener('touchend', e => {
+    const dx = tx - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 40) go(dx > 0 ? cur + 1 : cur - 1);
+  });
+
+  function initialSlide() {
+    const params = new URLSearchParams(window.location.search);
+    const raw = params.get('slide') || window.location.hash.replace(/^#s?/i, '');
+    const n = Number.parseInt(raw, 10);
+    return Number.isInteger(n) && n >= 1 && n <= slides.length ? n - 1 : 0;
+  }
+
+  go(initialSlide());
+</script>
+</body>
+</html>
