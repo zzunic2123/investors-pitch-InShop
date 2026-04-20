@@ -11,10 +11,13 @@
   :root {
     --obsidian: #1A1A1A;
     --coral: #FF6B47;
-    --coral-soft: #F0A882;
-    --paper: #F5F0EB;
-    --muted: rgba(245,240,235,0.64);
-    --faint: rgba(245,240,235,0.12);
+    --coral-soft: #B9492F;
+    --paper: #FAFAF8;
+    --text: #1A1A1A;
+    --muted: rgba(26,26,26,0.68);
+    --faint: rgba(26,26,26,0.13);
+    --panel: #FFFFFF;
+    --panel-soft: #F5F0EB;
     --serif: 'Playfair Display', Georgia, serif;
     --sans: 'DM Sans', Arial, sans-serif;
     --mono: 'DM Mono', monospace;
@@ -28,7 +31,7 @@
   html, body {
     margin: 0;
     min-height: 100%;
-    background: #111;
+    background: #E8E3DE;
     font-family: var(--sans);
   }
 
@@ -42,8 +45,8 @@
     height: 297mm;
     overflow: hidden;
     position: relative;
-    background: var(--obsidian);
-    color: var(--paper);
+    background: var(--paper);
+    color: var(--text);
     padding: 11mm 14mm 9mm;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
@@ -67,7 +70,7 @@
     font-size: 82mm;
     font-weight: 900;
     line-height: 0.8;
-    color: rgba(255,107,71,0.035);
+    color: rgba(255,107,71,0.055);
     pointer-events: none;
   }
 
@@ -169,7 +172,7 @@
   .mini-card,
   .price-card {
     border: 1px solid var(--faint);
-    background: rgba(245,240,235,0.025);
+    background: var(--panel);
     border-radius: 3px;
   }
 
@@ -208,7 +211,7 @@
   .mini-card b {
     display: block;
     margin-bottom: 1.1mm;
-    color: var(--paper);
+    color: var(--text);
     font-size: 8pt;
     font-weight: 500;
   }
@@ -268,6 +271,7 @@
   .price-card.pro {
     border-color: rgba(255,107,71,0.65);
     position: relative;
+    background: var(--panel-soft);
   }
 
   .price-card.pro::before {
@@ -294,7 +298,7 @@
     font-family: var(--serif);
     font-size: 17.5pt;
     line-height: 0.95;
-    color: var(--paper);
+    color: var(--text);
     font-weight: 700;
   }
 
@@ -312,13 +316,13 @@
     gap: 8mm;
     padding-top: 2.5mm;
     border-top: 1px solid var(--faint);
-    color: rgba(245,240,235,0.45);
+    color: rgba(26,26,26,0.55);
     font-size: 6.5pt;
   }
 
   @media print {
     html, body {
-      background: var(--obsidian);
+      background: var(--paper);
     }
 
     .sheet {
