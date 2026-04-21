@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>in{Shop} — AI Shopping Assistant</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&amp;family=DM+Sans:wght@300;400;500&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<title>in{Shop} - AI Shopping Assistant</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -19,9 +19,9 @@
     --warm-off: #FAFAF8;
     --mid-gray: #888480;
     --dark-text: #1A1A1A;
-    --serif: 'Playfair Display', Georgia, serif;
+    --serif: 'DM Sans', sans-serif;
     --sans: 'DM Sans', sans-serif;
-    --mono: 'DM Mono', monospace;
+    --mono: 'DM Sans', sans-serif;
   }
 
   html, body {
@@ -151,7 +151,7 @@
   }
 
   /* ═══════════════════════════════════════════
-     SLIDE 1 — COVER
+     SLIDE 1 - COVER
   ═══════════════════════════════════════════ */
   #s1 {
     justify-content: center;
@@ -215,7 +215,7 @@
   }
 
   /* ═══════════════════════════════════════════
-     SLIDE 2 — THE PROBLEM (STATS)
+     SLIDE 2 - THE PROBLEM (STATS)
   ═══════════════════════════════════════════ */
   #s2 {
     padding: 6vh 8vw;
@@ -234,9 +234,13 @@
     padding: 3rem 2.5rem;
     position: relative;
     border-top: 2px solid transparent;
+    border-bottom: 2px solid transparent;
     transition: border-color 0.3s;
   }
-  #s2 .stat-box:hover { border-top-color: var(--coral); }
+  #s2 .stat-box:hover {
+    border-top-color: var(--coral);
+    border-bottom-color: var(--coral);
+  }
   #s2 .stat-num {
     font-family: var(--serif);
     font-size: clamp(64px, 7vw, 96px);
@@ -254,7 +258,7 @@
   }
 
   /* ═══════════════════════════════════════════
-     SLIDE 3 — ISSUES
+     SLIDE 3 - ISSUES
   ═══════════════════════════════════════════ */
   #s3 {
     padding: 6vh 8vw;
@@ -313,14 +317,14 @@
     position: relative;
   }
   #s3 .issue-list li::before {
-    content: '—';
+    content: '-';
     position: absolute;
     left: 0;
     color: var(--coral-soft);
   }
 
   /* ═══════════════════════════════════════════
-     SLIDE 4 — SOLUTION
+     SLIDE 4 - SOLUTION
   ═══════════════════════════════════════════ */
   #s4 {
     padding: 6vh 8vw;
@@ -443,7 +447,7 @@
   }
 
   /* ═══════════════════════════════════════════
-     SLIDE 5 — HOW IT WORKS
+     SLIDE 5 - HOW IT WORKS
   ═══════════════════════════════════════════ */
   #s5 {
     padding: 6vh 8vw;
@@ -460,14 +464,16 @@
     content: '';
     position: absolute;
     top: 28px;
-    left: 10%;
-    width: 80%;
+    left: 12.5%;
+    width: 75%;
     height: 1px;
     background: linear-gradient(90deg, var(--coral) 0%, rgba(255,107,71,0.1) 100%);
+    z-index: 0;
   }
   #s5 .step {
     padding: 0 1.5rem;
     position: relative;
+    z-index: 1;
   }
   #s5 .step-dot {
     width: 56px; height: 56px;
@@ -478,9 +484,11 @@
     font-size: 22px;
     font-weight: 700;
     color: white;
-    margin-bottom: 1.5rem;
+    line-height: 1;
+    padding-bottom: 2px;
+    margin: 0 auto 1.5rem;
     position: relative;
-    z-index: 1;
+    z-index: 2;
   }
   #s5 .step:not(:first-child) .step-dot {
     background: var(--obsidian-2);
@@ -501,7 +509,7 @@
   }
 
   /* ═══════════════════════════════════════════
-     SLIDE 6 — VALUE PROPOSITION
+     SLIDE 6 - VALUE PROPOSITION
   ═══════════════════════════════════════════ */
   #s6 {
     padding: 6vh 8vw;
@@ -535,7 +543,7 @@
     font-family: var(--serif);
     font-size: 80px;
     font-weight: 900;
-    color: rgba(255,107,71,0.18);
+    color: rgba(255,107,71,0.28);
     line-height: 1;
     position: absolute;
     top: 1rem; right: 1.5rem;
@@ -576,7 +584,7 @@
   }
 
   /* ═══════════════════════════════════════════
-     SLIDE 7 — MARKET OPPORTUNITY
+     SLIDE 7 - MARKET OPPORTUNITY
   ═══════════════════════════════════════════ */
   #s7 {
     padding: 6vh 8vw;
@@ -634,7 +642,7 @@
   }
 
   /* ═══════════════════════════════════════════
-     SLIDE 8 — LOCAL CONTEXT
+     SLIDE 8 - LOCAL CONTEXT
   ═══════════════════════════════════════════ */
   #s8 {
     justify-content: center;
@@ -684,7 +692,7 @@
   }
 
   /* ═══════════════════════════════════════════
-     SLIDE 9 — PRICING
+     SLIDE 9 - PRICING
   ═══════════════════════════════════════════ */
   #s9 {
     padding: 6vh 8vw;
@@ -790,7 +798,7 @@
   }
 
   /* ═══════════════════════════════════════════
-     SLIDE 10 — GO TO MARKET
+     SLIDE 10 - GO TO MARKET
   ═══════════════════════════════════════════ */
   #s10 {
     padding: 6vh 8vw;
@@ -868,7 +876,7 @@
   }
 
   /* ═══════════════════════════════════════════
-     SLIDE 11 — ROADMAP
+     SLIDE 11 - ROADMAP
   ═══════════════════════════════════════════ */
   #s11 {
     padding: 6vh 8vw;
@@ -942,7 +950,7 @@
   #s11 .tl-item.future .tl-title { color: rgba(245,240,235,0.35); }
 
   /* ═══════════════════════════════════════════
-     SLIDE 12 — TEAM
+     SLIDE 12 - TEAM
   ═══════════════════════════════════════════ */
   #s12 {
     padding: 6vh 8vw;
@@ -995,7 +1003,7 @@
   }
 
   /* ═══════════════════════════════════════════
-     SLIDE 13 — CLOSE
+     SLIDE 13 - CLOSE
   ═══════════════════════════════════════════ */
   #s13 {
     justify-content: center;
@@ -1033,19 +1041,6 @@
     width: 80px; height: 2px;
     background: var(--coral);
     margin: 0 auto;
-  }
-  #s13 .bg-word {
-    position: absolute;
-    font-family: var(--serif);
-    font-size: 30vw;
-    font-weight: 900;
-    color: rgba(255,107,71,0.03);
-    bottom: -5vw;
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap;
-    pointer-events: none;
-    z-index: 0;
   }
   #s13 .close-label,
   #s13 h2,
@@ -1235,7 +1230,7 @@
     <div style="padding: 5vh 8vw 0;">
       <div class="label">The Problem</div>
       <h2 class="slide-h">The store experience<br>is <span>broken.</span></h2>
-      <p style="font-size:17px; color:rgba(245,240,235,0.5); font-weight:300; max-width:640px; line-height:1.7; margin-top:0.75rem;">In high-consideration purchases — electronics, appliances, automotive — customers arrive with questions. The result: lost sales, abandoned carts, customers who leave to "think about it" and never return.</p>
+      <p style="font-size:17px; color:rgba(245,240,235,0.5); font-weight:300; max-width:640px; line-height:1.7; margin-top:0.75rem;">In high-consideration purchases - electronics, appliances, automotive - customers arrive with questions. The result: lost sales, abandoned carts, customers who leave to "think about it" and never return.</p>
     </div>
     <div class="stat-grid">
       <div class="stat-box">
@@ -1282,11 +1277,11 @@
       <div class="issue-card">
         <div class="issue-num">03</div>
         <div class="issue-title">Marketing</div>
-        <div class="issue-h">"Our laptop has the best keyboard"</div>
+        <div class="issue-h">"This TV has AI features"</div>
         <ul class="issue-list">
-          <li>Retailers often miss the most important selling points</li>
-          <li>Staff has issues with upselling</li>
-          <li>Hard to push higher-margin products to customers</li>
+          <li>Feature labels often do not explain the real customer benefit</li>
+          <li>Staff may not know which AI features matter for each use case</li>
+          <li>Premium features need clearer framing to support upsell</li>
         </ul>
       </div>
     </div>
@@ -1297,7 +1292,7 @@
     <div style="padding: 5vh 8vw 2rem;">
       <div class="label">The Solution</div>
       <h2 class="hero-text">An AI expert,<br>available in <span>every aisle.</span></h2>
-      <p class="hero-sub">in{Shop} is deployed on tablet totems inside physical stores. Customers interact by voice or text to receive instant, deeply researched product guidance — no app, no waiting.</p>
+      <p class="hero-sub">in{Shop} is deployed on tablet totems inside physical stores. Customers interact by voice or text to receive instant, deeply researched product guidance - no app, no waiting.</p>
     </div>
     <div style="padding: 0 8vw;" class="features">
       <div class="feat">
@@ -1313,7 +1308,7 @@
       <div class="feat">
         <div class="feat-icon icon-integration" aria-hidden="true"></div>
         <div class="feat-title">ERP Integration</div>
-        <div class="feat-desc">Connects to existing systems — no manual data entry</div>
+        <div class="feat-desc">Connects to existing systems - no manual data entry</div>
       </div>
     </div>
   </div>
@@ -1343,7 +1338,7 @@
       <div class="step">
         <div class="step-dot">4</div>
         <div class="step-title">Data is Captured</div>
-        <div class="step-desc">Every interaction feeds the analytics dashboard — demand signals, feature priorities, inventory gaps.</div>
+        <div class="step-desc">Every interaction feeds the analytics dashboard - demand signals, feature priorities, inventory gaps.</div>
       </div>
     </div>
   </div>
@@ -1412,7 +1407,7 @@
         <div class="mbox">
           <div class="mbox-num">42%</div>
           <div class="mbox-label">Retailers piloting AI</div>
-          <div class="mbox-sub">Additional 34% in pilot/assessment</div>
+          <div class="mbox-sub">Additional 34% in assessment</div>
         </div>
       </div>
       <div class="verticals-label" style="margin-top:2rem;">Target Verticals</div>
@@ -1432,7 +1427,7 @@
     <span class="bracket right">}</span>
     <p class="close-label" style="font-family:var(--mono);font-size:12px;letter-spacing:.15em;color:rgba(245,240,235,.3);text-transform:uppercase;margin-bottom:2rem;">But locally</p>
     <h2 class="big-text">Outdated webshops.<br>Uninformed staff.<br><span>Unsatisfied customers.</span></h2>
-    <p class="sub">The Croatian market is ready — and no one has filled this gap yet.</p>
+    <p class="sub">The Croatian market is ready - and no one has filled this gap yet.</p>
   </div>
 
   <!-- ── S9 PRICING ─────────────────────────── -->
@@ -1445,12 +1440,12 @@
       <div class="price-card">
         <div class="price-tier">Standard</div>
         <div class="price-amount">400€</div>
-        <div class="price-period">/month</div>
+        <div class="price-period">per month per device</div>
         <div class="price-divider"></div>
-        <div class="price-desc">Customer experience</div>
+        <div class="price-desc">Starter package</div>
         <ul class="price-list">
           <li>Up to 5 devices</li>
-          <li>1,000 sessions per device/month</li>
+          <li>1,000 sessions per device per month</li>
           <li>Pay-as-you-go after limit</li>
           <li>Monthly support</li>
         </ul>
@@ -1458,12 +1453,12 @@
       <div class="price-card">
         <div class="price-tier">Plus</div>
         <div class="price-amount">600€</div>
-        <div class="price-period">/month</div>
+        <div class="price-period">per month per device</div>
         <div class="price-divider"></div>
-        <div class="price-desc">Retail intelligence</div>
+        <div class="price-desc">Growth package</div>
         <ul class="price-list">
           <li>Up to 20 devices</li>
-          <li>2,000 sessions per device/month</li>
+          <li>2,000 sessions per device per month</li>
           <li>Weekly support</li>
           <li>Advanced analytics</li>
         </ul>
@@ -1471,9 +1466,9 @@
       <div class="price-card featured pro">
         <div class="price-tier">Pro</div>
         <div class="price-amount">700€</div>
-        <div class="price-period">/month</div>
+        <div class="price-period">per month per device</div>
         <div class="price-divider"></div>
-        <div class="price-desc">Retailer revenue</div>
+        <div class="price-desc">Scale package</div>
         <ul class="price-list">
           <li>Unlimited devices</li>
           <li>Higher session limits</li>
@@ -1488,7 +1483,7 @@
   <div class="slide dark" id="s10">
     <div style="padding: 5vh 8vw 0;">
       <div class="label">Go-to-Market</div>
-      <h2 class="slide-h">The sky is the limit —<br>but we aim <span>smart.</span></h2>
+      <h2 class="slide-h">The sky is the limit -<br>but we aim <span>smart.</span></h2>
     </div>
     <div style="padding: 0 8vw;" class="gtm-grid">
       <div class="gtm-phase">
@@ -1497,10 +1492,10 @@
         <div class="phase-title">Croatia</div>
         <div class="phase-sub">€2M market</div>
         <ul class="phase-list">
-          <li>POC phase — Chipoteka</li>
+          <li>POC phase - Chipoteka</li>
           <li>First to fill the market gap</li>
           <li>Scale to other chains</li>
-          <li>280–550 viable locations</li>
+          <li>280-550 viable locations</li>
         </ul>
       </div>
       <div class="gtm-phase">
@@ -1521,7 +1516,7 @@
         <ul class="phase-list">
           <li>Austria, Czech Republic, Poland…</li>
           <li>Positioning on global market</li>
-          <li>3,000–8,000 potential locations</li>
+          <li>3,000-8,000 potential locations</li>
         </ul>
       </div>
     </div>
@@ -1561,24 +1556,24 @@
           <div class="tl-quarter">Q4 2026</div>
           <div class="tl-title">Pilot Program</div>
           <div class="tl-details">
-            <div class="tl-detail">3–5 ZG locations</div>
+            <div class="tl-detail">3-5 ZG locations</div>
             <div class="tl-detail">UX iteration</div>
             <div class="tl-detail">Data collection</div>
           </div>
         </div>
         <div class="tl-item future">
           <div class="tl-dot"></div>
-          <div class="tl-quarter">Q1–Q2 2027</div>
+          <div class="tl-quarter">Q1-Q2 2027</div>
           <div class="tl-title">Commercial Launch</div>
           <div class="tl-details">
             <div class="tl-detail">Seed round</div>
-            <div class="tl-detail">20–50 HR locations</div>
+            <div class="tl-detail">20-50 HR locations</div>
             <div class="tl-detail">Sales team</div>
           </div>
         </div>
         <div class="tl-item future">
           <div class="tl-dot"></div>
-          <div class="tl-quarter">Q3'27–Q1'28</div>
+          <div class="tl-quarter">Q3'27-Q1'28</div>
           <div class="tl-title">HR Expansion</div>
           <div class="tl-details">
             <div class="tl-detail">150+ locations</div>
@@ -1640,7 +1635,6 @@
 
   <!-- ── S13 CLOSE ──────────────────────────── -->
   <div class="slide dark" id="s13">
-    <div class="bg-word">Shop</div>
     <div class="close-label">in{Shop} · 2026</div>
     <h2>Thank<br><span>You.</span></h2>
     <p class="close-sub">Any questions?</p>
