@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>in{Shop} - AI Shopping Assistant</title>
+<title>Tilora - AI Shopping Assistant</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -758,61 +758,117 @@
     padding: var(--slide-pad-y) var(--slide-pad-x);
     justify-content: center;
   }
-  #s7 .market-grid {
+  #s7 > div:first-child {
+    text-align: center;
+  }
+  #s7 .market-layout {
     display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 1px;
-    background: linear-gradient(90deg, var(--line-soft-light), var(--accent-secondary-wash));
-    margin-top: 2.5rem;
-    margin-bottom: 2.5rem;
+    grid-template-columns: minmax(0, 1fr) minmax(19rem, 24rem);
+    gap: clamp(2rem, 3.2vw, 4.5rem);
+    margin: 2.5rem auto 0;
+    max-width: min(100%, 72rem);
+    align-items: center;
+  }
+  #s7 .market-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  #s7 .market-message {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 1.35rem + 2.5vmin, 3.6rem);
+    line-height: 1.12;
+    font-weight: 900;
+    color: var(--text-on-light);
+    max-width: 20ch;
+    letter-spacing: -0.03em;
+  }
+  #s7 .market-visual {
+    width: clamp(13rem, 18vw, 17rem);
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #s7 .market-icon {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+  }
+  #s7 .market-focus {
+    display: flex;
+    justify-content: center;
   }
   #s7 .mbox {
     background: var(--surface-light-alt);
     padding: var(--card-pad-y) var(--card-pad-x);
     text-align: center;
+    width: min(100%, 24rem);
+    border-left: 1px solid var(--line-soft-light);
+    position: relative;
+  }
+  #s7 .mbox::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--accent-strong);
   }
   #s7 .mbox-num {
     font-family: var(--serif);
-    font-size: clamp(3.2rem, 1.9rem + 4.2vmin, 5.6rem);
+    font-size: clamp(4rem, 2.3rem + 4.8vmin, 6.2rem);
     font-weight: 900;
     color: var(--stat-accent-soft);
     font-variant-numeric: tabular-nums;
     line-height: 1;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
   }
   #s7 .mbox-label {
-    font-size: var(--fs-title-sm);
+    font-size: var(--fs-title-md);
     color: var(--text-on-light);
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.7rem;
   }
   #s7 .mbox-sub {
     font-size: var(--fs-meta);
     color: var(--text-muted-light);
     font-family: var(--mono);
   }
+  #s7 .verticals-block {
+    margin-top: clamp(0.9rem, 1.8vh, 1.4rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+  }
   #s7 .verticals-label {
-    font-family: var(--mono);
-    font-size: var(--fs-label);
+    color: var(--text-on-light);
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text-subtle-light);
-    margin-bottom: 1rem;
+    font-family: var(--mono);
+    font-weight: 500;
   }
   #s7 .verticals {
-    display: flex; gap: 10px; flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.65rem;
+    max-width: 70rem;
   }
   #s7 .vert-pill {
-    padding: clamp(0.5rem, 0.35rem + 0.45vmin, 0.7rem) clamp(0.8rem, 0.55rem + 0.8vmin, 1.15rem);
-    border: 1px solid var(--pill-border);
-    border-radius: 2px;
-    font-size: var(--fs-meta);
-    color: var(--pill-text);
-    font-weight: 300;
-    transition: border-color 0.2s, color 0.2s;
-  }
-  #s7 .vert-pill:hover {
-    border-color: var(--accent-secondary-border);
-    color: var(--accent-secondary-soft);
+    padding: 0.58rem 0.95rem;
+    border: 1px solid var(--border-accent-soft);
+    background: var(--surface-light-alt);
+    color: var(--accent-secondary);
+    font-size: var(--fs-label);
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
   }
 
   /* ═══════════════════════════════════════════
@@ -885,6 +941,8 @@
     border-radius: 3px;
     border: 1px solid var(--border-light-soft);
     position: relative;
+    display: flex;
+    flex-direction: column;
     transition: transform 0.3s, background 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s;
   }
   #s9 .price-card:hover {
@@ -894,39 +952,25 @@
     border-color: transparent;
     box-shadow: var(--shadow-elevated);
   }
-  #s9 .price-card:hover .price-tier { color: var(--accent-strong); }
-  #s9 .price-card:hover .price-amount { color: var(--accent-strong); }
-  #s9 .price-card:hover .price-period,
+  #s9 .price-card:hover .price-tier { color: var(--text-on-dark); }
+  #s9 .price-card:hover .price-meta,
   #s9 .price-card:hover .price-desc { color: var(--text-soft-dark); }
   #s9 .price-card:hover .price-divider { background: var(--line-dark-soft); }
   #s9 .price-card:hover .price-list li { color: var(--text-muted-dark); }
   #s9 .price-card:hover .price-list li::before { color: var(--accent-strong); }
   #s9 .price-tier {
-    font-family: var(--mono);
-    font-size: var(--fs-label);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-subtle-light);
-    margin-bottom: 0.75rem;
-  }
-  #s9 .price-amount {
     font-family: var(--serif);
-    font-size: clamp(3.5rem, 2.1rem + 4.3vmin, 5rem);
-    font-weight: 700;
+    font-size: clamp(2.2rem, 1.35rem + 2.2vmin, 3.1rem);
+    font-weight: 900;
     color: var(--text-on-light);
     line-height: 1;
-    margin-bottom: 0.25rem;
-  }
-  #s9 .price-period {
-    font-size: var(--fs-meta);
-    color: var(--text-subtle-light);
-    margin-bottom: 1.5rem;
-    font-weight: 300;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.9rem;
   }
   #s9 .price-divider {
     height: 1px;
     background: var(--line-light-soft);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.1rem;
   }
   #s9 .price-desc {
     font-size: var(--fs-label);
@@ -934,11 +978,19 @@
     letter-spacing: 0.06em;
     font-family: var(--mono);
     color: var(--text-subtle-light);
+    margin-bottom: 0.35rem;
+  }
+  #s9 .price-meta {
+    font-size: var(--fs-body);
+    color: var(--accent-secondary);
+    font-weight: 500;
     margin-bottom: 1rem;
+    line-height: 1.3;
   }
   #s9 .price-list {
     list-style: none;
     display: flex; flex-direction: column; gap: 10px;
+    margin-bottom: 0;
   }
   #s9 .price-list li {
     font-size: var(--fs-body);
@@ -946,6 +998,14 @@
     padding-left: 18px;
     position: relative;
     line-height: 1.4;
+  }
+  #s9 .price-footer {
+    margin-top: auto;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--line-light-soft);
+  }
+  #s9 .price-card:hover .price-footer {
+    border-top-color: var(--line-dark-soft);
   }
   #s9 .price-list li::before {
     content: '✓';
@@ -1006,12 +1066,6 @@
     color: var(--text-on-light);
     margin-bottom: 1rem;
     line-height: 1.2;
-  }
-  #s10 .phase-sub {
-    font-size: var(--fs-meta);
-    font-family: var(--mono);
-    color: var(--accent-secondary);
-    margin-bottom: 1.25rem;
   }
   #s10 .phase-list {
     list-style: none;
@@ -1177,70 +1231,17 @@
     font-weight: 300;
   }
 
-  /* ═══════════════════════════════════════════
-     SLIDE 13 - THE ASK
-  ═══════════════════════════════════════════ */
-  #s13 {
-    padding: var(--slide-pad-y) var(--slide-pad-x);
-    justify-content: center;
-    text-align: center;
-  }
-  #s13 .ask-sub {
-    font-size: var(--fs-body-lg);
-    color: var(--text-muted-light);
-    font-weight: 300;
-    line-height: 1.6;
-    max-width: 760px;
-    margin: 1rem auto 0;
-  }
-  #s13 .ask-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--grid-gap);
-    margin-top: 2.75rem;
-  }
-  #s13 .ask-card {
-    background: var(--surface-light);
-    border: 1px solid var(--border-light-soft);
-    border-radius: 3px;
-    padding: var(--card-pad-y) var(--card-pad-x);
-  }
-  #s13 .ask-metric {
-    font-family: var(--serif);
-    font-size: clamp(2.9rem, 1.85rem + 3.5vmin, 4.8rem);
-    font-weight: 900;
-    line-height: 1;
-    color: var(--featured-accent);
-    margin-bottom: 0.85rem;
-  }
-  #s13 .ask-count {
-    display: inline-block;
-    font-variant-numeric: tabular-nums;
-  }
-  #s13 .ask-caption {
-    font-size: var(--fs-meta);
-    color: var(--text-muted-light);
-    line-height: 1.5;
-  }
-
   /* ── SHARED CARD TREATMENT ───────────────── */
   #s2 .stat-grid,
   #s3 .issues-grid,
   #s4 .features,
-  #s6 .vp-grid,
-  #s7 .market-grid,
-  #s13 .ask-grid {
+  #s6 .vp-grid {
     gap: 0;
-  }
-  #s7 .market-grid {
-    background: none;
   }
   #s2 .stat-box,
   #s3 .issue-card,
   #s4 .feat,
-  #s6 .vp-card,
-  #s7 .mbox,
-  #s13 .ask-card {
+  #s6 .vp-card {
     background: transparent;
     border: 0;
     border-left: 1px solid var(--line-soft-light);
@@ -1252,17 +1253,13 @@
   #s2 .stat-box:first-child,
   #s3 .issue-card:first-child,
   #s4 .feat:first-child,
-  #s6 .vp-card:first-child,
-  #s7 .mbox:first-child,
-  #s13 .ask-card:first-child {
+  #s6 .vp-card:first-child {
     border-left: none;
   }
   #s2 .stat-box::before,
   #s3 .issue-card::before,
   #s4 .feat::before,
-  #s6 .vp-card::before,
-  #s7 .mbox::before,
-  #s13 .ask-card::before {
+  #s6 .vp-card::before {
     content: '';
     position: absolute;
     top: 0;
@@ -1279,9 +1276,7 @@
   #s2 .stat-box:hover::before,
   #s3 .issue-card:hover::before,
   #s4 .feat:hover::before,
-  #s6 .vp-card:hover::before,
-  #s7 .mbox:hover::before,
-  #s13 .ask-card:hover::before {
+  #s6 .vp-card:hover::before {
     background: var(--accent-strong);
   }
   #s3 .issue-card {
@@ -1289,9 +1284,9 @@
   }
 
   /* ═══════════════════════════════════════════
-     SLIDE 14 - CLOSE
+     SLIDE 13 - CLOSE
   ═══════════════════════════════════════════ */
-  #s14 {
+  #s13 {
     justify-content: center;
     align-items: center;
     padding: clamp(3rem, 8vh, 8vh) var(--slide-pad-x);
@@ -1300,7 +1295,7 @@
     overflow: hidden;
     isolation: isolate;
   }
-  #s14 .close-label {
+  #s13 .close-label {
     font-family: var(--mono);
     font-size: var(--fs-label);
     letter-spacing: 0.15em;
@@ -1308,7 +1303,7 @@
     text-transform: uppercase;
     margin-bottom: 2rem;
   }
-  #s14 h2 {
+  #s13 h2 {
     font-family: var(--serif);
     font-size: var(--fs-display-lg);
     font-weight: 900;
@@ -1316,22 +1311,22 @@
     line-height: 1;
     margin-bottom: 1.5rem;
   }
-  #s14 h2 span { color: var(--accent-strong); }
-  #s14 .close-sub {
+  #s13 h2 span { color: var(--accent-strong); }
+  #s13 .close-sub {
     font-size: var(--fs-body-lg);
     color: var(--text-muted-dark);
     font-weight: 300;
     margin-bottom: 3rem;
   }
-  #s14 .close-line {
+  #s13 .close-line {
     width: 80px; height: 2px;
     background: linear-gradient(90deg, var(--line-accent), var(--accent-secondary-line));
     margin: 0 auto;
   }
-  #s14 .close-label,
-  #s14 h2,
-  #s14 .close-sub,
-  #s14 .close-line {
+  #s13 .close-label,
+  #s13 h2,
+  #s13 .close-sub,
+  #s13 .close-line {
     position: relative;
     z-index: 2;
   }
@@ -1347,17 +1342,38 @@
   .dark .slide-h { color: var(--text-on-dark); }
   .light .slide-h { color: var(--text-on-light); }
 
+  .slide-source {
+    position: absolute;
+    left: var(--slide-pad-x);
+    right: var(--slide-pad-x);
+    bottom: 4.6rem;
+    z-index: 3;
+    font-family: var(--mono);
+    font-size: clamp(0.72rem, 0.64rem + 0.22vmin, 0.9rem);
+    line-height: 1.45;
+    letter-spacing: 0.04em;
+    color: var(--text-muted-light);
+  }
+  .slide-source a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-accent-soft);
+  }
+  .slide-source a:hover {
+    color: var(--accent-secondary);
+    border-bottom-color: var(--accent-secondary-border);
+  }
+
   #s3 .issue-title,
   #s6 .vp-tag,
   #s7 .verticals-label,
   #s9 .price-tier,
   #s9 .price-desc,
   #s10 .phase-label,
-  #s10 .phase-sub,
   #s11 .tl-quarter,
   #s12 .team-section-label,
   #s8 .close-label,
-  #s14 .close-label {
+  #s13 .close-label {
     font-size: var(--fs-label);
   }
 
@@ -1394,7 +1410,7 @@
   #s2,
   #s4,
   #s8,
-  #s14 {
+  #s13 {
     display: block;
     padding: 0;
   }
@@ -1458,7 +1474,7 @@
     margin: 0;
   }
 
-  #s14 .close-label {
+  #s13 .close-label {
     position: absolute;
     top: 24vh;
     left: var(--slide-pad-x);
@@ -1466,7 +1482,7 @@
     z-index: 2;
     margin: 0;
   }
-  #s14 h2 {
+  #s13 h2 {
     position: absolute;
     top: 34vh;
     left: var(--slide-pad-x);
@@ -1474,7 +1490,7 @@
     z-index: 2;
     margin: 0;
   }
-  #s14 .close-sub {
+  #s13 .close-sub {
     position: absolute;
     top: 64vh;
     left: var(--slide-pad-x);
@@ -1482,7 +1498,7 @@
     z-index: 2;
     margin: 0;
   }
-  #s14 .close-line {
+  #s13 .close-line {
     position: absolute;
     top: 74vh;
     left: 50%;
@@ -1565,34 +1581,38 @@
 
   @media (max-width: 1024px) {
     #s2 .stat-grid, #s3 .issues-grid, #s4 .features,
-    #s6 .vp-grid, #s7 .market-grid, #s9 .pricing-grid,
-    #s13 .ask-grid, #s10 .gtm-grid, #s12 .team-cols {
+    #s6 .vp-grid, #s9 .pricing-grid, #s10 .gtm-grid, #s12 .team-cols {
       grid-template-columns: 1fr;
       gap: var(--stack-gap);
+    }
+    #s7 .market-layout {
+      grid-template-columns: 1fr;
+      gap: var(--stack-gap);
+    }
+    #s7 .market-copy {
+      align-items: center;
+      text-align: center;
+    }
+    #s7 .market-message {
+      max-width: none;
     }
     #s2 .stat-box,
     #s3 .issue-card,
     #s4 .feat,
-    #s6 .vp-card,
-    #s7 .mbox,
-    #s13 .ask-card {
+    #s6 .vp-card {
       border-left: none;
       border-top: 1px solid var(--line-soft-light);
     }
     #s2 .stat-box:first-child,
     #s3 .issue-card:first-child,
     #s4 .feat:first-child,
-    #s6 .vp-card:first-child,
-    #s7 .mbox:first-child,
-    #s13 .ask-card:first-child {
+    #s6 .vp-card:first-child {
       border-top: none;
     }
     #s2 .stat-box::before,
     #s3 .issue-card::before,
     #s4 .feat::before,
-    #s6 .vp-card::before,
-    #s7 .mbox::before,
-    #s13 .ask-card::before {
+    #s6 .vp-card::before {
       width: 100%;
       height: 2px;
       top: 0;
@@ -1604,7 +1624,7 @@
     #s2,
     #s4,
     #s8,
-    #s14 {
+    #s13 {
       display: flex;
       padding: var(--slide-pad-y) var(--slide-pad-x);
     }
@@ -1614,7 +1634,7 @@
     }
     #s4,
     #s8,
-    #s14 {
+    #s13 {
       justify-content: center;
       gap: clamp(1rem, 0.7rem + 1.2vmin, 2rem);
     }
@@ -1625,10 +1645,10 @@
     #s8 .close-label,
     #s8 .big-text,
     #s8 .sub,
-    #s14 .close-label,
-    #s14 h2,
-    #s14 .close-sub,
-    #s14 .close-line {
+    #s13 .close-label,
+    #s13 h2,
+    #s13 .close-sub,
+    #s13 .close-line {
       position: static !important;
       top: auto;
       left: auto;
@@ -1638,8 +1658,17 @@
       max-width: none;
       width: 100%;
     }
+    #s2 .slide-source,
+    #s7 .slide-source {
+      position: static;
+      left: auto;
+      right: auto;
+      bottom: auto;
+      width: 100%;
+      margin-top: 0.8rem;
+    }
     #s8,
-    #s14 {
+    #s13 {
       align-items: center;
       text-align: center;
     }
@@ -1648,8 +1677,8 @@
     }
     #s8 .close-label,
     #s8 .sub,
-    #s14 .close-label,
-    #s14 .close-sub {
+    #s13 .close-label,
+    #s13 .close-sub {
       max-width: 42rem;
     }
     #s2 .stat-grid,
@@ -1694,7 +1723,7 @@
   <div class="slide dark active" id="s1">
     <div class="bg-circle"></div>
     <div class="bg-circle-2"></div>
-    <h1>In<span>Shop.</span></h1>
+    <h1><span>Tilora</span></h1>
     <p class="sub">AI Shopping Assistant for Physical Retail.<br>No app. No waiting. No lost sales.</p>
     <div class="tags">
       <span class="tag">Retail Intelligence</span>
@@ -1724,6 +1753,7 @@
         <div class="stat-desc">received poor customer service</div>
       </div>
     </div>
+    <p class="slide-source">Source: <a href="https://www.retailtouchpoints.com/news/study-reveals-why-96-of-shoppers-leave-stores-empty-handed/19669/" target="_blank" rel="noreferrer">Retail TouchPoints</a></p>
   </div>
 
   <!-- ── S3 ISSUES ──────────────────────────── -->
@@ -1740,7 +1770,7 @@
         <ul class="issue-list">
           <li>Floor staff aren't always familiar with every use case</li>
           <li>Occupied personnel can't provide an individual approach</li>
-          <li>Not every member of staff has great soft skills</li>
+          <li>Customers don't know what they want</li>
         </ul>
       </div>
       <div class="issue-card">
@@ -1770,7 +1800,7 @@
     <div style="padding: 5vh 8vw 2rem;">
       <div class="label">The Solution</div>
       <h2 class="hero-text">An AI expert,<br>available in <span>every aisle.</span></h2>
-      <p class="hero-sub">in{Shop} is deployed on tablet totems inside physical stores. Customers interact by voice or text to receive instant, deeply researched product guidance - <span class="accent">no app, no waiting</span>.</p>
+      <p class="hero-sub">Tilora is deployed on physical devices in store. Customers interact by voice or text to receive instant, deeply researched product guidance - <span class="accent">no app, no waiting</span>.</p>
     </div>
     <div style="padding: 0 8vw;" class="features">
       <div class="feat">
@@ -1785,8 +1815,8 @@
       </div>
       <div class="feat">
         <div class="feat-icon icon-integration" aria-hidden="true"></div>
-        <div class="feat-title">ERP Integration</div>
-        <div class="feat-desc">Connects to existing systems - no manual data entry</div>
+        <div class="feat-title">System Integration</div>
+        <div class="feat-desc">Connects to existing store systems - no manual data entry</div>
       </div>
     </div>
   </div>
@@ -1825,7 +1855,7 @@
   <div class="slide light" id="s6">
     <div style="padding: 5vh 8vw 0;">
       <div class="label">Value Proposition</div>
-      <h2 class="slide-h">Three ways in{Shop}<br>creates <span>value.</span></h2>
+      <h2 class="slide-h">Three ways Tilora<br>creates <span>value.</span></h2>
     </div>
     <div style="padding: 0 8vw;" class="vp-grid">
       <div class="vp-card">
@@ -1871,31 +1901,32 @@
       <h2 class="slide-h">A large,<br><span>fast-moving</span> market.</h2>
     </div>
     <div style="padding: 0 8vw;">
-      <div class="market-grid">
-        <div class="mbox">
-        <div class="mbox-num" data-count="40" data-prefix="$" data-suffix="B">0B</div>
-        <div class="mbox-label">AI in Retail by 2030</div>
-        <div class="mbox-sub">23% CAGR · Grand View Research</div>
+      <div class="market-layout">
+        <div class="market-copy">
+          <p class="market-message">The market is growing, and retailers are already moving.</p>
+          <div class="market-visual" aria-hidden="true">
+            <img class="market-icon" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Crect x='56' y='146' width='34' height='76' rx='10' fill='%237CB7FF'/%3E%3Crect x='104' y='128' width='34' height='94' rx='10' fill='%237CB7FF'/%3E%3Crect x='152' y='96' width='34' height='126' rx='10' fill='%237CB7FF'/%3E%3Cpath d='M58 118C98 118 125 106 146 86C163 70 177 52 198 38' fill='none' stroke='%23111827' stroke-width='14' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M172 38H198V64' fill='none' stroke='%23111827' stroke-width='14' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+          </div>
+        </div>
+        <div class="market-focus">
+          <div class="mbox">
+            <div class="mbox-num" data-count="42" data-suffix="%">0%</div>
+            <div class="mbox-label">of retailers are piloting AI</div>
+            <div class="mbox-sub">Additional 34% are still in assessment</div>
+          </div>
+        </div>
       </div>
-      <div class="mbox">
-        <div class="mbox-num" data-count="26" data-prefix="$" data-suffix="B">0B</div>
-        <div class="mbox-label">Retail Kiosk Market by 2032</div>
-        <div class="mbox-sub">$14B today · 8% CAGR</div>
+      <div class="verticals-block">
+        <div class="verticals-label">Target Verticals</div>
+        <div class="verticals">
+          <div class="vert-pill">Consumer Electronics</div>
+          <div class="vert-pill">Hardware &amp; DIY</div>
+          <div class="vert-pill">Home Appliances</div>
+          <div class="vert-pill">Automotive Showrooms</div>
+          <div class="vert-pill">Specialised Retail</div>
+        </div>
       </div>
-      <div class="mbox">
-        <div class="mbox-num" data-count="42" data-suffix="%">0%</div>
-        <div class="mbox-label">Retailers piloting AI</div>
-        <div class="mbox-sub">Additional 34% in assessment</div>
-      </div>
-      </div>
-      <div class="verticals-label" style="margin-top:2rem;">Target Verticals</div>
-      <div class="verticals">
-        <div class="vert-pill">Consumer Electronics</div>
-        <div class="vert-pill">Hardware &amp; DIY</div>
-        <div class="vert-pill">Home Appliances</div>
-        <div class="vert-pill">Automotive Showrooms</div>
-        <div class="vert-pill">Specialised Retail</div>
-      </div>
+      <p class="slide-source">Source: <a href="https://www.marketgrowthreports.com/market-reports/artificial-intelligence-in-retail-market-101275" target="_blank" rel="noreferrer">Market Growth Reports</a></p>
     </div>
   </div>
 
@@ -1917,8 +1948,6 @@
     <div style="padding: 0 8vw;" class="pricing-grid">
       <div class="price-card">
         <div class="price-tier">Standard</div>
-        <div class="price-amount">400€</div>
-        <div class="price-period">per month per device</div>
         <div class="price-divider"></div>
         <div class="price-desc">Starter package</div>
         <ul class="price-list">
@@ -1927,11 +1956,12 @@
           <li>Pay-as-you-go after limit</li>
           <li>Monthly support</li>
         </ul>
+        <div class="price-footer">
+          <div class="price-meta">€350-500 range</div>
+        </div>
       </div>
       <div class="price-card">
         <div class="price-tier">Plus</div>
-        <div class="price-amount">650€</div>
-        <div class="price-period">per month per device</div>
         <div class="price-divider"></div>
         <div class="price-desc">Growth package</div>
         <ul class="price-list">
@@ -1940,11 +1970,12 @@
           <li>Weekly support</li>
           <li>Advanced analytics</li>
         </ul>
+        <div class="price-footer">
+          <div class="price-meta">€550-700 range</div>
+        </div>
       </div>
       <div class="price-card">
         <div class="price-tier">Pro</div>
-        <div class="price-amount">700€</div>
-        <div class="price-period">per month per device</div>
         <div class="price-divider"></div>
         <div class="price-desc">Scale package</div>
         <ul class="price-list">
@@ -1953,6 +1984,9 @@
           <li>24/7 support</li>
           <li>Custom features &amp; analytics</li>
         </ul>
+        <div class="price-footer">
+          <div class="price-meta">€700+ range</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1968,7 +2002,6 @@
         <div class="phase-num">01</div>
         <div class="phase-label">Beachhead</div>
         <div class="phase-title">Croatia</div>
-        <div class="phase-sub">€2M market</div>
         <ul class="phase-list">
           <li>POC phase - Chipoteka</li>
           <li>First to fill the market gap</li>
@@ -1980,7 +2013,6 @@
         <div class="phase-num">02</div>
         <div class="phase-label">Regional Expansion</div>
         <div class="phase-title">Neighbouring Markets</div>
-        <div class="phase-sub">€6M market</div>
         <ul class="phase-list">
           <li>Slovenia, BiH, Serbia…</li>
           <li>Assert regional leadership in retail AI</li>
@@ -1990,7 +2022,6 @@
         <div class="phase-num">03</div>
         <div class="phase-label">Expansion</div>
         <div class="phase-title">CEE Platform</div>
-        <div class="phase-sub">€15M market</div>
         <ul class="phase-list">
           <li>Austria, Czech Republic, Poland…</li>
           <li>Positioning on global market</li>
@@ -2111,32 +2142,9 @@
     </div>
   </div>
 
-  <!-- ── S13 ASK ────────────────────────────── -->
-  <div class="slide light" id="s13">
-    <div style="padding: 5vh 8vw 0;">
-      <div class="label">The Ask</div>
-      <h2 class="slide-h">We are raising <span class="ask-count" data-count="250000" data-prefix="€" data-grouped="true">€0</span><br>for <span class="ask-count" data-count="10" data-suffix="%">0%</span> of the company.</h2>
-      <p class="ask-sub">This round funds product development, pilot deployment, and the first commercial rollout with measurable retail traction.</p>
-    </div>
-    <div style="padding: 0 8vw;" class="ask-grid">
-      <div class="ask-card">
-        <div class="ask-metric">€2.5M</div>
-        <div class="ask-caption">Implied pre-money valuation</div>
-      </div>
-      <div class="ask-card">
-        <div class="ask-metric">12-18 mo</div>
-        <div class="ask-caption">Runway to pilot execution and launch</div>
-      </div>
-      <div class="ask-card">
-        <div class="ask-metric">3 Priorities</div>
-        <div class="ask-caption">Product build, pilot rollout, and initial sales execution</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── S14 CLOSE ──────────────────────────── -->
-  <div class="slide dark" id="s14">
-    <div class="close-label">in{Shop} · 2026</div>
+  <!-- ── S13 CLOSE ──────────────────────────── -->
+  <div class="slide dark" id="s13">
+    <div class="close-label">Tilora · 2026</div>
     <h2>Thank<br><span>You.</span></h2>
     <p class="close-sub">Any questions?</p>
     <div class="close-line"></div>

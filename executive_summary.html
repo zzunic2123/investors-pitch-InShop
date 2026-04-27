@@ -3,24 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>in{Shop} Executive Summary</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&amp;family=DM+Sans:wght@300;400;500;700&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<title>Tilora Executive Summary</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; }
 
   :root {
-    --obsidian: #1A1A1A;
-    --coral: #FF6B47;
-    --coral-soft: #B9492F;
-    --paper: #FAFAF8;
-    --text: #1A1A1A;
-    --muted: rgba(26,26,26,0.68);
-    --faint: rgba(26,26,26,0.13);
-    --panel: #FFFFFF;
-    --panel-soft: #F5F0EB;
-    --serif: 'Playfair Display', Georgia, serif;
-    --sans: 'DM Sans', Arial, sans-serif;
-    --mono: 'DM Mono', monospace;
+    --bg-dark: #0E1525;
+    --bg-light: #F6F8FC;
+    --surface-light: #FFFFFF;
+    --surface-light-alt: #EEF3FB;
+    --surface-dark: #172033;
+    --text-on-dark: #F8FBFF;
+    --text-on-light: #111827;
+    --text-muted-light: #586174;
+    --text-soft-light: #6B7487;
+    --line-light-soft: rgba(17,24,39,0.10);
+    --line-accent: #1D5FD3;
+    --line-soft-light: rgba(29,95,211,0.16);
+    --accent-strong: #7CB7FF;
+    --accent-soft: #B8D8FF;
+    --accent-secondary: #1D5FD3;
+    --accent-secondary-wash: rgba(29,95,211,0.10);
+    --shadow-elevated: 0 18px 40px rgba(14,21,37,0.12);
+    --sans: 'DM Sans', sans-serif;
   }
 
   @page {
@@ -31,23 +37,25 @@
   html, body {
     margin: 0;
     min-height: 100%;
-    background: #E8E3DE;
+    background: #DDE6F3;
     font-family: var(--sans);
   }
 
   body {
     display: grid;
     place-items: center;
+    padding: 12px;
   }
 
   .sheet {
     width: 210mm;
     height: 297mm;
-    overflow: hidden;
     position: relative;
-    background: var(--paper);
-    color: var(--text);
-    padding: 11mm 14mm 9mm;
+    overflow: hidden;
+    background: var(--bg-light);
+    color: var(--text-on-light);
+    padding: 10.5mm 12.5mm 8.5mm;
+    box-shadow: 0 24px 60px rgba(14,21,37,0.14);
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }
@@ -58,36 +66,30 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 2.5mm;
-    background: var(--coral);
+    height: 2.4mm;
+    background: linear-gradient(90deg, var(--line-accent), var(--accent-strong));
   }
 
-  .bg-word {
+  .sheet::after {
+    content: 'Tilora';
     position: absolute;
-    right: -18mm;
-    bottom: 3mm;
-    font-family: var(--serif);
-    font-size: 82mm;
+    right: -7mm;
+    bottom: 1mm;
+    font-size: 42mm;
+    line-height: 0.9;
     font-weight: 900;
-    line-height: 0.8;
-    color: rgba(255,107,71,0.055);
+    color: rgba(29,95,211,0.05);
+    letter-spacing: -0.04em;
     pointer-events: none;
   }
 
-  .content {
-    position: relative;
-    z-index: 1;
-    height: 100%;
-    display: grid;
-    grid-template-rows: auto auto 1fr auto;
-    gap: 4mm;
-  }
-
   .topline,
-  .label,
+  .kicker,
+  .card-kicker,
   .footer {
-    font-family: var(--mono);
-    letter-spacing: 0.13em;
+    font-size: 7pt;
+    font-weight: 500;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
   }
 
@@ -95,234 +97,348 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 7.4pt;
-    color: var(--coral);
+    color: var(--accent-strong);
+    margin-bottom: 5.2mm;
   }
 
   .hero {
     display: grid;
-    grid-template-columns: 1.08fr 0.92fr;
-    gap: 9mm;
-    align-items: end;
-    padding-bottom: 3mm;
-    border-bottom: 1px solid var(--faint);
+    grid-template-columns: 1.18fr 0.82fr;
+    gap: 5mm;
+    align-items: stretch;
+    margin-bottom: 4.5mm;
+  }
+
+  .hero-copy {
+    padding-right: 4mm;
+  }
+
+  .kicker {
+    color: var(--accent-strong);
+    margin-bottom: 2.2mm;
   }
 
   h1 {
-    margin: 0;
-    font-family: var(--serif);
-    font-size: 33pt;
-    line-height: 0.96;
+    margin: 0 0 3mm;
+    font-size: 30pt;
+    line-height: 0.94;
     font-weight: 900;
+    letter-spacing: -0.04em;
   }
 
-  h1 span { color: var(--coral); }
+  h1 span,
+  h2 span,
+  .accent {
+    color: var(--accent-strong);
+  }
 
   .intro {
     margin: 0;
-    color: var(--muted);
-    font-size: 8.8pt;
+    color: var(--text-muted-light);
+    font-size: 8.4pt;
     line-height: 1.42;
     font-weight: 300;
+    max-width: 104mm;
   }
 
-  .main-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4.2mm;
+  .highlight-panel {
+    background: var(--surface-light-alt);
+    border: 1px solid var(--line-light-soft);
+    color: var(--text-on-light);
+    padding: 4mm 4.2mm 3.5mm;
+    position: relative;
+    overflow: hidden;
   }
 
-  .section {
-    border-top: 1px solid var(--faint);
-    padding-top: 2.7mm;
+  .highlight-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 1.2mm;
+    background: linear-gradient(180deg, var(--line-accent), var(--accent-strong));
   }
 
-  .section.full { grid-column: 1 / -1; }
-
-  .label {
+  .highlight-panel .card-kicker {
+    color: var(--accent-strong);
     margin-bottom: 1.8mm;
-    color: var(--coral);
-    font-size: 6.8pt;
   }
 
-  h2 {
-    margin: 0 0 1.8mm;
-    font-family: var(--serif);
-    font-size: 13.6pt;
-    line-height: 1.1;
-    font-weight: 700;
+  .highlight-title {
+    font-size: 13pt;
+    line-height: 1.02;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    margin: 0 0 1.6mm;
   }
 
-  p {
-    margin: 0;
-    color: var(--muted);
-    font-size: 7.8pt;
-    line-height: 1.36;
+  .highlight-copy {
+    margin: 0 0 2.4mm;
+    font-size: 7.4pt;
+    line-height: 1.38;
+    color: var(--text-muted-light);
     font-weight: 300;
+  }
+
+  .highlight-list {
+    display: grid;
+    gap: 1.5mm;
+  }
+
+  .highlight-item {
+    padding-left: 2.4mm;
+    position: relative;
+  }
+
+  .highlight-item::before {
+    content: '';
+    position: absolute;
+    top: 1.1mm;
+    left: 0;
+    width: 1.2mm;
+    height: 1.2mm;
+    border-radius: 50%;
+    background: var(--accent-strong);
+  }
+
+  .highlight-item strong {
+    display: block;
+    font-size: 7.3pt;
+    line-height: 1.2;
+    color: var(--text-on-light);
+    margin-bottom: 0.4mm;
+  }
+
+  .highlight-item span {
+    display: block;
+    font-size: 6.8pt;
+    line-height: 1.26;
+    color: var(--text-muted-light);
   }
 
   .stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2.2mm;
-    margin-top: 2.8mm;
-  }
-
-  .stat,
-  .mini-card,
-  .price-card {
-    border: 1px solid var(--faint);
-    background: var(--panel);
-    border-radius: 3px;
+    gap: 0;
+    margin-bottom: 4.2mm;
+    border-top: 1px solid var(--line-soft-light);
+    border-bottom: 1px solid var(--line-soft-light);
   }
 
   .stat {
-    padding: 2.4mm;
+    padding: 3.4mm 3.6mm 3.1mm;
+    position: relative;
+    border-left: 1px solid var(--line-soft-light);
+  }
+
+  .stat:first-child {
+    border-left: none;
+  }
+
+  .stat::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1.2mm;
+    height: 100%;
+    background: transparent;
   }
 
   .stat strong {
     display: block;
-    font-family: var(--serif);
-    font-size: 19pt;
+    font-size: 22pt;
     line-height: 0.92;
-    color: var(--coral);
+    font-weight: 900;
+    color: var(--accent-strong);
+    margin-bottom: 1.6mm;
+    letter-spacing: -0.04em;
   }
 
   .stat span {
     display: block;
-    margin-top: 1mm;
-    color: var(--muted);
-    font-size: 6.7pt;
-    line-height: 1.25;
+    font-size: 7.6pt;
+    line-height: 1.28;
+    color: var(--text-muted-light);
+  }
+
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.4mm;
+  }
+
+  .section {
+    border-top: 1px solid var(--line-light-soft);
+    padding-top: 2.4mm;
+  }
+
+  .section.full {
+    grid-column: 1 / -1;
+  }
+
+  h2 {
+    margin: 0 0 1.3mm;
+    font-size: 13.3pt;
+    line-height: 1.02;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+  }
+
+  p {
+    margin: 0;
+    color: var(--text-muted-light);
+    font-size: 7.5pt;
+    line-height: 1.35;
+    font-weight: 300;
+  }
+
+  .two-col-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.4mm;
+    margin-top: 2mm;
   }
 
   .cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2.4mm;
-    margin-top: 2.8mm;
+    gap: 0;
+    margin-top: 2mm;
+    border-top: 1px solid var(--line-soft-light);
   }
 
-  .mini-card {
-    padding: 2.6mm;
-    min-height: 18mm;
+  .card {
+    position: relative;
+    padding: 2.6mm 2.5mm 2.3mm;
+    border-left: 1px solid var(--line-soft-light);
   }
 
-  .mini-card b {
-    display: block;
-    margin-bottom: 1.1mm;
-    color: var(--text);
-    font-size: 8pt;
-    font-weight: 500;
+  .card:first-child {
+    border-left: none;
   }
 
-  .mini-card span {
-    color: var(--muted);
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 0.8mm;
+    background: transparent;
+  }
+
+  .card-kicker {
+    color: var(--accent-strong);
+    margin-bottom: 1.2mm;
+  }
+
+  .card h3 {
+    margin: 0 0 1.1mm;
+    font-size: 8.6pt;
+    line-height: 1.15;
+    font-weight: 700;
+    color: var(--text-on-light);
+  }
+
+  .card p {
     font-size: 6.9pt;
     line-height: 1.28;
-  }
-
-  .market-model {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3mm;
-    margin-top: 2.3mm;
-  }
-
-  .section:not(.full) .market-model {
-    grid-template-columns: 1fr;
-    gap: 1.2mm;
-  }
-
-  .market-list,
-  .roadmap-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 1.4mm;
-  }
-
-  .market-list li,
-  .roadmap-list li {
-    color: var(--muted);
-    font-size: 7.4pt;
-    line-height: 1.28;
-  }
-
-  .market-list strong,
-  .roadmap-list strong {
-    color: var(--coral-soft);
-    font-family: var(--mono);
-    font-weight: 500;
   }
 
   .pricing {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2.4mm;
-    margin-top: 2.8mm;
+    gap: 1.8mm;
+    margin-top: 2mm;
   }
 
   .price-card {
+    background: var(--surface-light);
+    border: 1px solid var(--line-light-soft);
     padding: 2.5mm;
-  }
-
-  .price-card.pro {
-    border-color: rgba(255,107,71,0.65);
-    position: relative;
-    background: var(--panel-soft);
-  }
-
-  .price-card.pro::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1.2mm;
-    background: var(--coral);
+    box-shadow: 0 10px 24px rgba(14,21,37,0.04);
   }
 
   .tier {
     display: block;
-    font-family: var(--mono);
-    font-size: 6.7pt;
+    font-size: 7pt;
     letter-spacing: 0.1em;
-    color: var(--coral);
     text-transform: uppercase;
-    margin-bottom: 1.1mm;
+    color: var(--accent-strong);
+    margin-bottom: 1.2mm;
+    font-weight: 500;
   }
 
   .amount {
-    font-family: var(--serif);
-    font-size: 17.5pt;
+    font-size: 14.5pt;
     line-height: 0.95;
-    color: var(--text);
+    font-weight: 900;
+    color: var(--text-on-light);
+    letter-spacing: -0.03em;
+  }
+
+  .price-card p {
+    margin-top: 1.1mm;
+    font-size: 6.5pt;
+    line-height: 1.24;
+    color: var(--text-muted-light);
+  }
+
+  ul {
+    margin: 1.6mm 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 1mm;
+  }
+
+  li {
+    font-size: 7pt;
+    line-height: 1.26;
+    color: var(--text-muted-light);
+  }
+
+  li strong {
+    color: var(--accent-secondary);
     font-weight: 700;
   }
 
-  .pro .amount { color: var(--coral); }
-
-  .price-card p {
-    margin-top: 1.2mm;
-    font-size: 6.8pt;
-    line-height: 1.25;
+  .team-note {
+    background: var(--surface-light-alt);
+    border: 1px solid var(--line-light-soft);
+    padding: 2.7mm;
+    margin-top: 1.8mm;
   }
 
   .footer {
     display: flex;
     justify-content: space-between;
     gap: 8mm;
-    padding-top: 2.5mm;
-    border-top: 1px solid var(--faint);
-    color: rgba(26,26,26,0.55);
-    font-size: 6.5pt;
+    margin-top: 3.4mm;
+    padding-top: 2.2mm;
+    border-top: 1px solid var(--line-light-soft);
+    color: var(--text-soft-light);
+  }
+
+  @media screen and (max-width: 900px) {
+    body {
+      padding: 0;
+    }
+
+    .sheet {
+      width: 100%;
+      height: auto;
+      padding: 24px;
+      box-shadow: none;
+    }
   }
 
   @media print {
     html, body {
-      background: var(--paper);
+      background: var(--bg-light);
+      padding: 0;
     }
 
     .sheet {
@@ -335,95 +451,188 @@
 </head>
 <body>
   <div class="sheet">
-    <div class="bg-word">Shop</div>
-    <div class="content">
-      <div class="topline">
-        <span>in{Shop}</span>
-        <span>Investor Leave-Behind · 2026</span>
+    <div class="topline">
+      <span>Tilora</span>
+      <span>Executive Summary · 2026</span>
+    </div>
+
+    <div class="hero">
+      <div class="hero-copy">
+        <div class="kicker">AI Shopping Assistant for Physical Retail</div>
+        <h1>AI Expert in Every <span>Aisle.</span></h1>
+        <p class="intro">Tilora is an in-store AI assistant deployed on tablet totems for physical retail. Customers interact by voice or text to receive instant product guidance, comparisons, and answers grounded in live catalogue data without downloading an app or waiting for available staff.</p>
       </div>
 
-      <div class="hero">
-        <h1>AI Expert<br>in Every<br><span>Aisle.</span></h1>
-        <p class="intro">in{Shop} is an AI shopping assistant for physical retail, deployed on tablet totems inside stores. Customers interact by voice or text to receive instant, deeply researched product guidance without an app, registration, or waiting for available staff.</p>
+      <div class="highlight-panel">
+        <div class="card-kicker">Why Now</div>
+        <div class="highlight-title">Retail is ready for AI-assisted buying.</div>
+        <p class="highlight-copy">The gap is clear: stores need an always-available expert layer that improves conversion, captures unmet demand, and supports premium product positioning inside physical retail.</p>
+        <div class="highlight-list">
+          <div class="highlight-item">
+            <strong>No app, no waiting</strong>
+            <span>Customers get immediate product guidance at the point of decision.</span>
+          </div>
+          <div class="highlight-item">
+            <strong>Live retailer context</strong>
+            <span>Answers draw on catalogue data, ERP integrations, and structured product knowledge.</span>
+          </div>
+          <div class="highlight-item">
+            <strong>Commercial upside</strong>
+            <span>Retailers gain analytics, inventory insight, and a new in-store marketing surface.</span>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <div class="main-grid">
-        <div class="section">
-          <div class="label">The Problem</div>
-          <h2>The store experience is broken.</h2>
-          <p>High-consideration retail categories need expert guidance at the point of decision. Staff cannot always cover every product, use case, technical question, and upsell moment.</p>
-          <div class="stats">
-            <div class="stat"><strong>96%</strong><span>left without buying</span></div>
-            <div class="stat"><strong>67%</strong><span>could not find the right product</span></div>
-            <div class="stat"><strong>39%</strong><span>reported poor customer service</span></div>
+    <div class="stats">
+      <div class="stat">
+        <strong>96%</strong>
+        <span>Left without buying</span>
+      </div>
+      <div class="stat">
+        <strong>67%</strong>
+        <span>Could not find the right product</span>
+      </div>
+      <div class="stat">
+        <strong>39%</strong>
+        <span>Received poor customer service</span>
+      </div>
+    </div>
+
+    <div class="main-grid">
+      <div class="section">
+        <div class="kicker">The Problem</div>
+        <h2>The store experience is <span>broken.</span></h2>
+        <p>High-consideration categories like electronics, appliances, and automotive require expert guidance at the point of decision. Retail staff cannot consistently cover every use case, technical question, and upsell opportunity, which leads directly to lost sales and abandoned intent.</p>
+
+        <div class="cards">
+          <div class="card">
+            <div class="card-kicker">Customer Experience</div>
+            <h3>"I need a laptop for SolidWorks"</h3>
+            <p>Customers need tailored answers that floor staff cannot always provide in real time.</p>
           </div>
-        </div>
-
-        <div class="section">
-          <div class="label">The Solution</div>
-          <h2>Expert guidance, live in-store.</h2>
-          <p>The assistant uses LLMs, retrieval-augmented generation, live catalogue search, and ERP integration to answer with retailer-specific product context and current availability.</p>
-          <div class="cards">
-            <div class="mini-card"><b>Voice &amp; Text</b><span>On-totem voice and text interaction.</span></div>
-            <div class="mini-card"><b>Deep Research</b><span>Contextual comparisons and follow-up answers.</span></div>
-            <div class="mini-card"><b>ERP Integration</b><span>Connects to systems and live catalogues.</span></div>
+          <div class="card">
+            <div class="card-kicker">Retail Intelligence</div>
+            <h3>"We don't have that right now"</h3>
+            <p>Retailers lack a clean signal on unmet demand, missing inventory, and fast-changing trends.</p>
           </div>
-        </div>
-
-        <div class="section full">
-          <div class="label">Value Proposition</div>
-          <div class="cards">
-            <div class="mini-card"><b>The Assistant</b><span>Expert support at the point of decision, reducing routine load on floor staff.</span></div>
-            <div class="mini-card"><b>Analytics</b><span>Interaction clustering surfaces demand signals, inventory gaps, and decision drivers.</span></div>
-            <div class="mini-card"><b>Marketing Layer</b><span>Configurable prioritisation for featured, high-margin, or supplier-funded products.</span></div>
-          </div>
-        </div>
-
-        <div class="section">
-          <div class="label">Market &amp; Expansion</div>
-          <h2>A large, fast-moving market.</h2>
-          <div class="market-model">
-            <ul class="market-list">
-              <li><strong>$40B</strong> AI in retail by 2030</li>
-              <li><strong>$26B</strong> retail kiosk market by 2032</li>
-              <li><strong>42%</strong> retailers already piloting AI</li>
-            </ul>
-            <ul class="market-list">
-              <li><strong>Beachhead:</strong> Croatia, EUR 2M market</li>
-              <li><strong>Next:</strong> Slovenia, BiH, Serbia</li>
-              <li><strong>Scale:</strong> broader CEE platform</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="section">
-          <div class="label">Business Model</div>
-          <h2>Subscription plans for retailers.</h2>
-          <div class="pricing">
-            <div class="price-card"><span class="tier">Standard</span><div class="amount">400 EUR</div><p>Customer experience, 5 devices, monthly support.</p></div>
-            <div class="price-card"><span class="tier">Plus</span><div class="amount">600 EUR</div><p>Retail intelligence, 20 devices, advanced analytics.</p></div>
-            <div class="price-card pro"><span class="tier">Pro</span><div class="amount">700 EUR</div><p>Retailer revenue, unlimited devices, 24/7 support.</p></div>
-          </div>
-        </div>
-
-        <div class="section full">
-          <div class="label">Roadmap &amp; Team</div>
-          <div class="market-model">
-            <ul class="roadmap-list">
-              <li><strong>Q2 2026:</strong> MVP specification, team formation, legal registration</li>
-              <li><strong>Q3 2026:</strong> device prototype, AI module v1, CMS basics</li>
-              <li><strong>Q4 2026:</strong> pilot across 3-5 Zagreb locations</li>
-              <li><strong>2027+:</strong> commercial launch, Croatian rollout, regional expansion</li>
-            </ul>
-            <p>The team combines business leadership, strategic advisory, AI engineering, software engineering, QA, and project management. in{Shop} does not replace staff; it gives retailers an always-available expert, a demand intelligence layer, and a monetisable in-store marketing channel.</p>
+          <div class="card">
+            <div class="card-kicker">Marketing</div>
+            <h3>"This TV has AI features"</h3>
+            <p>Premium features are often poorly framed, which weakens conversion and upsell outcomes.</p>
           </div>
         </div>
       </div>
 
-      <div class="footer">
-        <span>AI Shopping Assistant for Physical Retail</span>
-        <span>Retail Intelligence · Voice &amp; Text · Powered by AI</span>
+      <div class="section">
+        <div class="kicker">The Solution</div>
+        <h2>An AI expert, available in <span>every aisle.</span></h2>
+        <p>Tilora combines voice and text interaction, LLMs, retrieval-augmented generation, agentic catalogue research, and ERP connectivity to deliver contextual answers based on current retailer data.</p>
+
+        <div class="cards">
+          <div class="card">
+            <div class="card-kicker">Input</div>
+            <h3>Voice &amp; Text</h3>
+            <p>Customers switch naturally between voice and text in the same session.</p>
+          </div>
+          <div class="card">
+            <div class="card-kicker">Engine</div>
+            <h3>Deep Research</h3>
+            <p>Product comparisons and follow-up answers are grounded in live catalogue context.</p>
+          </div>
+          <div class="card">
+            <div class="card-kicker">Systems</div>
+            <h3>ERP Integration</h3>
+            <p>Existing retailer data is used directly, without manual maintenance overhead.</p>
+          </div>
+        </div>
       </div>
+
+      <div class="section full">
+        <div class="kicker">Value Proposition</div>
+        <div class="cards">
+          <div class="card">
+            <div class="card-kicker">Customer Experience</div>
+            <h3>The Assistant</h3>
+            <p>Expert guidance at the point of decision reduces routine load on floor staff and improves customer confidence.</p>
+          </div>
+          <div class="card">
+            <div class="card-kicker">Retail Intelligence</div>
+            <h3>Analytics</h3>
+            <p>Interaction data reveals demand signals, inventory gaps, and the product features that drive buying decisions.</p>
+          </div>
+          <div class="card">
+            <div class="card-kicker">Retailer Revenue</div>
+            <h3>Marketing Layer</h3>
+            <p>Retailers can prioritise featured or high-margin products and create supplier-funded placement opportunities.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="kicker">Market &amp; GTM</div>
+        <h2>A large, fast-moving <span>market.</span></h2>
+        <div class="two-col-list">
+          <ul>
+            <li><strong>$40B</strong> AI in retail by 2030</li>
+            <li><strong>$26B</strong> Retail kiosk market by 2032</li>
+            <li><strong>42%</strong> Retailers already piloting AI</li>
+          </ul>
+          <ul>
+            <li><strong>Beachhead:</strong> Croatia, EUR 2M market</li>
+            <li><strong>Next:</strong> Slovenia, BiH, Serbia</li>
+            <li><strong>Scale:</strong> Wider CEE platform</li>
+          </ul>
+        </div>
+        <ul>
+          <li><strong>Target verticals:</strong> Consumer electronics, hardware &amp; DIY, home appliances, automotive showrooms, specialised retail.</li>
+          <li><strong>Commercial entry:</strong> POC phase with Chipoteka, then expansion to other chains and regional markets.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="kicker">Business Model</div>
+        <h2>Subscription plans for retailers of <span>any size.</span></h2>
+        <div class="pricing">
+          <div class="price-card">
+            <span class="tier">Standard</span>
+            <div class="amount">400 EUR</div>
+            <p>Up to 5 devices, 1,000 sessions per device, monthly support.</p>
+          </div>
+          <div class="price-card">
+            <span class="tier">Plus</span>
+            <div class="amount">650 EUR</div>
+            <p>Up to 20 devices, 2,000 sessions per device, weekly support, advanced analytics.</p>
+          </div>
+          <div class="price-card">
+            <span class="tier">Pro</span>
+            <div class="amount">700 EUR</div>
+            <p>Unlimited devices, higher session limits, 24/7 support, custom features and analytics.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section full">
+        <div class="kicker">Roadmap &amp; Team</div>
+        <div class="two-col-list">
+          <ul>
+            <li><strong>Q2 2026:</strong> MVP specification, team formation, legal registration</li>
+            <li><strong>Q3 2026:</strong> Device prototype, AI module v1, CMS basics</li>
+            <li><strong>Q4 2026:</strong> Pilot across 3-5 Zagreb locations</li>
+            <li><strong>2027+:</strong> Commercial launch, Croatian rollout, regional expansion</li>
+          </ul>
+          <div class="team-note">
+            <p><strong class="accent">Management:</strong> Nikola Bakula, Berislav Boras, Marko Mazanik, Josip Pavković.</p>
+            <p style="margin-top:1.5mm;"><strong class="accent">Tech:</strong> Matija Pavlović, Zvonimir Žunić, Marcel Macukić, Filip Perušić, Eva Boras.</p>
+            <p style="margin-top:1.8mm;">The team covers leadership, strategic advisory, AI engineering, software engineering, QA, and project execution. The product does not replace staff; it gives retailers an always-available expert layer, a demand intelligence system, and a monetisable in-store marketing channel.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>AI Shopping Assistant for Physical Retail</span>
+      <span>Retail Intelligence · Voice &amp; Text · Powered by AI</span>
     </div>
   </div>
 </body>
