@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tilora Executive Summary</title>
+<title>Tilora Investor One-Pager</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; }
@@ -102,15 +102,12 @@
   }
 
   .hero {
-    display: grid;
-    grid-template-columns: 1.18fr 0.82fr;
-    gap: 5mm;
-    align-items: stretch;
+    display: block;
     margin-bottom: 4.5mm;
   }
 
   .hero-copy {
-    padding-right: 4mm;
+    padding-right: 0;
   }
 
   .kicker {
@@ -138,83 +135,7 @@
     font-size: 8.4pt;
     line-height: 1.42;
     font-weight: 300;
-    max-width: 104mm;
-  }
-
-  .highlight-panel {
-    background: var(--surface-light-alt);
-    border: 1px solid var(--line-light-soft);
-    color: var(--text-on-light);
-    padding: 4mm 4.2mm 3.5mm;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .highlight-panel::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 1.2mm;
-    background: linear-gradient(180deg, var(--line-accent), var(--accent-strong));
-  }
-
-  .highlight-panel .card-kicker {
-    color: var(--accent-strong);
-    margin-bottom: 1.8mm;
-  }
-
-  .highlight-title {
-    font-size: 13pt;
-    line-height: 1.02;
-    font-weight: 900;
-    letter-spacing: -0.03em;
-    margin: 0 0 1.6mm;
-  }
-
-  .highlight-copy {
-    margin: 0 0 2.4mm;
-    font-size: 7.4pt;
-    line-height: 1.38;
-    color: var(--text-muted-light);
-    font-weight: 300;
-  }
-
-  .highlight-list {
-    display: grid;
-    gap: 1.5mm;
-  }
-
-  .highlight-item {
-    padding-left: 2.4mm;
-    position: relative;
-  }
-
-  .highlight-item::before {
-    content: '';
-    position: absolute;
-    top: 1.1mm;
-    left: 0;
-    width: 1.2mm;
-    height: 1.2mm;
-    border-radius: 50%;
-    background: var(--accent-strong);
-  }
-
-  .highlight-item strong {
-    display: block;
-    font-size: 7.3pt;
-    line-height: 1.2;
-    color: var(--text-on-light);
-    margin-bottom: 0.4mm;
-  }
-
-  .highlight-item span {
-    display: block;
-    font-size: 6.8pt;
-    line-height: 1.26;
-    color: var(--text-muted-light);
+    max-width: 146mm;
   }
 
   .stats {
@@ -453,34 +374,14 @@
   <div class="sheet">
     <div class="topline">
       <span>Tilora</span>
-      <span>Executive Summary · 2026</span>
+      <span>Investor One-Pager · 2026</span>
     </div>
 
     <div class="hero">
       <div class="hero-copy">
         <div class="kicker">AI Shopping Assistant for Physical Retail</div>
-        <h1>AI Expert in Every <span>Aisle.</span></h1>
-        <p class="intro">Tilora is an in-store AI assistant deployed on tablet totems for physical retail. Customers interact by voice or text to receive instant product guidance, comparisons, and answers grounded in live catalogue data without downloading an app or waiting for available staff.</p>
-      </div>
-
-      <div class="highlight-panel">
-        <div class="card-kicker">Why Now</div>
-        <div class="highlight-title">Retail is ready for AI-assisted buying.</div>
-        <p class="highlight-copy">The gap is clear: stores need an always-available expert layer that improves conversion, captures unmet demand, and supports premium product positioning inside physical retail.</p>
-        <div class="highlight-list">
-          <div class="highlight-item">
-            <strong>No app, no waiting</strong>
-            <span>Customers get immediate product guidance at the point of decision.</span>
-          </div>
-          <div class="highlight-item">
-            <strong>Live retailer context</strong>
-            <span>Answers draw on catalogue data, ERP integrations, and structured product knowledge.</span>
-          </div>
-          <div class="highlight-item">
-            <strong>Commercial upside</strong>
-            <span>Retailers gain analytics, inventory insight, and a new in-store marketing surface.</span>
-          </div>
-        </div>
+        <h1>An AI product expert in every <span>aisle.</span></h1>
+        <p class="intro">Tilora gives physical retailers an AI product expert in every aisle, helping shoppers choose faster while giving retailers demand intelligence.</p>
       </div>
     </div>
 
@@ -501,77 +402,43 @@
 
     <div class="main-grid">
       <div class="section">
-        <div class="kicker">The Problem</div>
-        <h2>The store experience is <span>broken.</span></h2>
-        <p>High-consideration categories like electronics, appliances, and automotive require expert guidance at the point of decision. Retail staff cannot consistently cover every use case, technical question, and upsell opportunity, which leads directly to lost sales and abandoned intent.</p>
-
-        <div class="cards">
-          <div class="card">
-            <div class="card-kicker">Customer Experience</div>
-            <h3>"I need a laptop for SolidWorks"</h3>
-            <p>Customers need tailored answers that floor staff cannot always provide in real time.</p>
-          </div>
-          <div class="card">
-            <div class="card-kicker">Retail Intelligence</div>
-            <h3>"We don't have that right now"</h3>
-            <p>Retailers lack a clean signal on unmet demand, missing inventory, and fast-changing trends.</p>
-          </div>
-          <div class="card">
-            <div class="card-kicker">Marketing</div>
-            <h3>"This TV has AI features"</h3>
-            <p>Premium features are often poorly framed, which weakens conversion and upsell outcomes.</p>
-          </div>
-        </div>
+        <div class="kicker">Problem</div>
+        <h2>Expert retail advice does not scale <span>on the floor.</span></h2>
+        <p>Physical retail loses sales when shoppers need expert advice and cannot get it in time. In electronics, appliances, hardware, DIY, and automotive, staff cannot consistently answer technical questions, comparisons, or use-case-specific needs.</p>
       </div>
 
       <div class="section">
-        <div class="kicker">The Solution</div>
-        <h2>An AI expert, available in <span>every aisle.</span></h2>
-        <p>Tilora combines voice and text interaction, LLMs, retrieval-augmented generation, agentic catalogue research, and ERP connectivity to deliver contextual answers based on current retailer data.</p>
-
-        <div class="cards">
-          <div class="card">
-            <div class="card-kicker">Input</div>
-            <h3>Voice &amp; Text</h3>
-            <p>Customers switch naturally between voice and text in the same session.</p>
-          </div>
-          <div class="card">
-            <div class="card-kicker">Engine</div>
-            <h3>Deep Research</h3>
-            <p>Product comparisons and follow-up answers are grounded in live catalogue context.</p>
-          </div>
-          <div class="card">
-            <div class="card-kicker">Systems</div>
-            <h3>ERP Integration</h3>
-            <p>Existing retailer data is used directly, without manual maintenance overhead.</p>
-          </div>
-        </div>
+        <div class="kicker">Solution</div>
+        <h2>Tilora brings instant product guidance <span>to the shelf.</span></h2>
+        <p>Tilora is an in-store AI assistant deployed on tablet totems. Shoppers use voice or text to ask questions, compare products, and get recommendations without downloading an app. Tilora uses live catalogue and ERP data plus structured product knowledge, and it supports staff rather than replacing them.</p>
       </div>
 
       <div class="section full">
-        <div class="kicker">Value Proposition</div>
+        <div class="kicker">How It Works</div>
+        <h2>A compact workflow built for real <span>store deployment.</span></h2>
         <div class="cards">
           <div class="card">
-            <div class="card-kicker">Customer Experience</div>
-            <h3>The Assistant</h3>
-            <p>Expert guidance at the point of decision reduces routine load on floor staff and improves customer confidence.</p>
+            <div class="card-kicker">Customer Input</div>
+            <h3>Voice and text at the totem</h3>
+            <p>Customers start instantly at the point of decision.</p>
           </div>
           <div class="card">
-            <div class="card-kicker">Retail Intelligence</div>
-            <h3>Analytics</h3>
-            <p>Interaction data reveals demand signals, inventory gaps, and the product features that drive buying decisions.</p>
+            <div class="card-kicker">AI Engine</div>
+            <h3>LLM plus retrieval and catalogue research</h3>
+            <p>Grounded comparisons and feature explanations.</p>
           </div>
           <div class="card">
-            <div class="card-kicker">Retailer Revenue</div>
-            <h3>Marketing Layer</h3>
-            <p>Retailers can prioritise featured or high-margin products and create supplier-funded placement opportunities.</p>
+            <div class="card-kicker">Retail Systems</div>
+            <h3>ERP, catalogue, and analytics</h3>
+            <p>Inventory context and analytics dashboard.</p>
           </div>
         </div>
       </div>
 
       <div class="section">
-        <div class="kicker">Market &amp; GTM</div>
-        <h2>A large, fast-moving <span>market.</span></h2>
+        <div class="kicker">Market &amp; Wedge</div>
+        <h2>Croatia first, then regional expansion <span>across CEE.</span></h2>
+        <p>Tilora enters through high-consideration retail where advice quality affects conversion. The plan is to prove ROI in Croatia, expand into Slovenia, Bosnia and Herzegovina, and Serbia, and build toward a broader CEE retail platform.</p>
         <div class="two-col-list">
           <ul>
             <li><strong>$40B</strong> AI in retail by 2030</li>
@@ -579,60 +446,66 @@
             <li><strong>42%</strong> Retailers already piloting AI</li>
           </ul>
           <ul>
-            <li><strong>Beachhead:</strong> Croatia, EUR 2M market</li>
-            <li><strong>Next:</strong> Slovenia, BiH, Serbia</li>
-            <li><strong>Scale:</strong> Wider CEE platform</li>
+            <li><strong>Beachhead:</strong> Croatia, estimated EUR 2M initial market</li>
+            <li><strong>Expansion:</strong> Slovenia, Bosnia and Herzegovina, Serbia</li>
+            <li><strong>Long-term:</strong> Broader CEE retail platform</li>
           </ul>
         </div>
         <ul>
-          <li><strong>Target verticals:</strong> Consumer electronics, hardware &amp; DIY, home appliances, automotive showrooms, specialised retail.</li>
-          <li><strong>Commercial entry:</strong> POC phase with Chipoteka, then expansion to other chains and regional markets.</li>
+          <li><strong>Target verticals:</strong> Consumer electronics, hardware and DIY, home appliances, automotive showrooms, and specialised retail.</li>
+          <li><strong>GTM wedge:</strong> Start where advice quality affects conversion and premium upsell.</li>
         </ul>
       </div>
 
       <div class="section">
         <div class="kicker">Business Model</div>
-        <h2>Subscription plans for retailers of <span>any size.</span></h2>
+        <h2>Subscription revenue with an additional <span>marketing layer.</span></h2>
+        <p>Tilora is sold as a per-device subscription, with session capacity, support, and analytics scaled by retailer size. A second revenue layer can come from supplier-funded product placement inside the guidance flow.</p>
         <div class="pricing">
           <div class="price-card">
             <span class="tier">Standard</span>
-            <div class="amount">400 EUR</div>
+            <div class="amount">EUR 350-500</div>
             <p>Up to 5 devices, 1,000 sessions per device, monthly support.</p>
           </div>
           <div class="price-card">
             <span class="tier">Plus</span>
-            <div class="amount">650 EUR</div>
+            <div class="amount">EUR 550-700</div>
             <p>Up to 20 devices, 2,000 sessions per device, weekly support, advanced analytics.</p>
           </div>
           <div class="price-card">
             <span class="tier">Pro</span>
-            <div class="amount">700 EUR</div>
-            <p>Unlimited devices, higher session limits, 24/7 support, custom features and analytics.</p>
+            <div class="amount">EUR 700+</div>
+            <p>Unlimited devices, higher session limits, 24/7 support, custom features.</p>
           </div>
         </div>
       </div>
 
-      <div class="section full">
-        <div class="kicker">Roadmap &amp; Team</div>
-        <div class="two-col-list">
-          <ul>
-            <li><strong>Q2 2026:</strong> MVP specification, team formation, legal registration</li>
-            <li><strong>Q3 2026:</strong> Device prototype, AI module v1, CMS basics</li>
-            <li><strong>Q4 2026:</strong> Pilot across 3-5 Zagreb locations</li>
-            <li><strong>2027+:</strong> Commercial launch, Croatian rollout, regional expansion</li>
-          </ul>
-          <div class="team-note">
-            <p><strong class="accent">Management:</strong> Nikola Bakula, Berislav Boras, Marko Mazanik, Josip Pavković.</p>
-            <p style="margin-top:1.5mm;"><strong class="accent">Tech:</strong> Matija Pavlović, Zvonimir Žunić, Marcel Macukić, Filip Perušić, Eva Boras.</p>
-            <p style="margin-top:1.8mm;">The team covers leadership, strategic advisory, AI engineering, software engineering, QA, and project execution. The product does not replace staff; it gives retailers an always-available expert layer, a demand intelligence system, and a monetisable in-store marketing channel.</p>
-          </div>
+      <div class="section">
+        <div class="kicker">Current Status</div>
+        <h2>Execution is structured around a live <span>POC path.</span></h2>
+        <p>Tilora is pre-launch and focused on execution through a POC with Chipoteka and a staged pilot before commercial rollout.</p>
+        <ul>
+          <li><strong>Q2 2026:</strong> MVP specification, team formation, legal registration</li>
+          <li><strong>Q3 2026:</strong> Device prototype, AI module v1, CMS basics</li>
+          <li><strong>Q4 2026:</strong> Pilot across 3-5 Zagreb locations</li>
+          <li><strong>2027+:</strong> Commercial launch, Croatian rollout, regional expansion</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="kicker">Team</div>
+        <h2>A cross-functional team built for <span>retail execution.</span></h2>
+        <p>The team combines leadership, advisory, AI engineering, software engineering, QA, and project execution.</p>
+        <div class="team-note">
+          <p><strong class="accent">Management:</strong> Nikola Bakula, Berislav Boras, Marko Mazanik, Josip Pavković.</p>
+          <p style="margin-top:1.5mm;"><strong class="accent">Tech:</strong> Matija Pavlović, Zvonimir Žunić, Marcel Macukić, Filip Perušić, Eva Boras.</p>
         </div>
       </div>
     </div>
 
     <div class="footer">
       <span>AI Shopping Assistant for Physical Retail</span>
-      <span>Retail Intelligence · Voice &amp; Text · Powered by AI</span>
+      <span>Voice &amp; Text · Retail Intelligence · In-Store Marketing Layer</span>
     </div>
   </div>
 </body>
