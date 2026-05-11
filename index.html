@@ -479,7 +479,7 @@
     z-index: 2;
   }
   #s4 .solution-copy {
-    max-width: min(100%, 38rem);
+    max-width: min(100%, 36rem);
   }
   #s4 .hero-text {
     font-family: var(--serif);
@@ -494,9 +494,9 @@
   #s4 .hero-sub {
     font-size: var(--fs-body-lg);
     color: var(--text-muted-light);
-    max-width: 620px;
-    line-height: 1.7;
-    margin-bottom: 3.5rem;
+    max-width: 560px;
+    line-height: 1.55;
+    margin-bottom: 2.5rem;
     font-weight: 300;
   }
   #s4 .solution-visual {
@@ -552,20 +552,20 @@
   }
   #s4 .feat {
     background: var(--surface-light-alt);
-    padding: var(--card-pad-y) var(--card-pad-x);
+    padding: clamp(1.25rem, 0.95rem + 0.8vmin, 1.9rem) var(--card-pad-x);
     position: relative;
     border: 1px solid var(--border-light-soft);
     border-radius: 3px;
   }
   #s4 .feat-icon {
-    width: 56px;
-    height: 56px;
-    margin-bottom: 1.45rem;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 1.2rem;
     position: relative;
     color: var(--accent-secondary-line);
     --icon-primary: var(--accent-secondary-line);
     --icon-secondary: var(--text-on-light);
-    transform: scale(1.34);
+    transform: scale(1.22);
     transform-origin: left top;
   }
   #s4 .feat-icon::before,
@@ -632,9 +632,9 @@
     margin-bottom: 0.5rem;
   }
   #s4 .feat-desc {
-    font-size: var(--fs-body);
+    font-size: var(--fs-body-sm);
     color: var(--text-muted-light);
-    line-height: 1.6;
+    line-height: 1.48;
     font-weight: 300;
   }
 
@@ -1134,6 +1134,19 @@
     color: var(--accent-strong);
     font-size: 16px;
   }
+  #s9 .offer-price {
+    margin-top: auto;
+    padding-top: clamp(1.2rem, 0.85rem + 0.9vmin, 1.8rem);
+    border-top: 1px solid var(--line-light-soft);
+  }
+  #s9 .offer-price-value {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 1.25rem + 2.35vmin, 3.8rem);
+    font-weight: 900;
+    color: var(--accent-secondary);
+    line-height: 1;
+    white-space: nowrap;
+  }
 
   /* ═══════════════════════════════════════════
      SLIDE 11 - ROADMAP
@@ -1221,6 +1234,118 @@
   #s11 .tl-item:nth-child(2) { --tl-opacity: 0.96; }
   #s11 .tl-item:nth-child(3) { --tl-opacity: 0.93; }
   #s11 .tl-item:nth-child(4) { --tl-opacity: 0.90; }
+
+  /* ═══════════════════════════════════════════
+     SLIDE 10 - INVESTMENT ASK
+  ═══════════════════════════════════════════ */
+  #s10 {
+    padding: clamp(2.5rem, 5vh, 4.2rem) var(--slide-pad-x);
+    justify-content: flex-start;
+    gap: clamp(1.2rem, 2.3vh, 2.2rem);
+    overflow: hidden;
+  }
+  #s10 .ask-copy {
+    max-width: 72rem;
+  }
+  #s10 .slide-h {
+    font-size: clamp(3rem, 1.8rem + 4vmin, 5.8rem);
+    line-height: 1.06;
+    margin-bottom: 0.9rem;
+  }
+  #s10 .ask-count {
+    color: var(--accent-strong);
+    font-variant-numeric: tabular-nums;
+  }
+  #s10 .ask-count.is-counting {
+    text-shadow: 0 10px 24px var(--accent-secondary-wash);
+  }
+  #s10 .ask-sub {
+    font-size: var(--fs-body-lg);
+    color: var(--text-muted-light);
+    line-height: 1.42;
+    font-weight: 300;
+    max-width: 58rem;
+  }
+  #s10 .spend-panel {
+    border-top: 1px solid var(--line-light-soft);
+    border-bottom: 1px solid var(--line-light-soft);
+    padding: clamp(0.8rem, 0.65rem + 0.55vmin, 1.2rem) 0;
+  }
+  #s10 .spend-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid var(--line-light-soft);
+  }
+  #s10 .spend-kicker,
+  #s10 .spend-total {
+    font-family: var(--mono);
+    font-size: var(--fs-label);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  #s10 .spend-kicker {
+    color: var(--accent-strong);
+  }
+  #s10 .spend-total {
+    color: var(--text-subtle-light);
+    text-align: right;
+  }
+  #s10 .spend-list {
+    display: flex;
+    flex-direction: column;
+  }
+  #s10 .spend-row {
+    display: grid;
+    grid-template-columns: minmax(24rem, 1fr) minmax(28rem, 32vw) 8.5rem 4.4rem;
+    gap: clamp(1rem, 1.3vw, 1.8rem);
+    align-items: center;
+    padding: clamp(0.62rem, 0.48rem + 0.42vmin, 0.9rem) 0;
+    border-bottom: 1px solid var(--line-light-soft);
+  }
+  #s10 .spend-row:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  #s10 .spend-name {
+    font-size: var(--fs-body-sm);
+    color: var(--text-on-light);
+    line-height: 1.25;
+    font-weight: 500;
+  }
+  #s10 .spend-bar {
+    width: 100%;
+    height: clamp(0.75rem, 0.58rem + 0.45vmin, 1rem);
+    background: var(--line-light-soft);
+    overflow: hidden;
+  }
+  #s10 .spend-fill {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-secondary), var(--accent-strong));
+  }
+  #s10 .spend-fill.w30 { width: 30%; }
+  #s10 .spend-fill.w35 { width: 35%; }
+  #s10 .spend-fill.w15 { width: 15%; }
+  #s10 .spend-fill.w10 { width: 10%; }
+  #s10 .spend-amount {
+    font-size: var(--fs-body);
+    color: var(--text-muted-light);
+    font-weight: 300;
+    text-align: right;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  #s10 .spend-share {
+    font-family: var(--serif);
+    font-size: clamp(1.7rem, 1.05rem + 1.45vmin, 2.55rem);
+    font-weight: 900;
+    color: var(--text-on-light);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
 
   /* ═══════════════════════════════════════════
      SLIDE 12 - TEAM
@@ -1514,7 +1639,7 @@
   }
 
   body.print-mode #s4 .features {
-    top: 64vh;
+    top: 62vh;
   }
 
   @media print {
@@ -1593,7 +1718,7 @@
     }
 
     #s4 .features {
-      top: 64vh !important;
+      top: 62vh !important;
     }
 
     #s4 .solution-visual {
@@ -1695,7 +1820,7 @@
 
   #s4 > div:first-child {
     position: absolute;
-    top: 12vh;
+    top: 10vh;
     left: var(--slide-pad-x);
     right: var(--slide-pad-x);
     z-index: 2;
@@ -1852,6 +1977,7 @@
     #s7,
     #s8,
     #s9,
+    #s10,
     #s11,
     #s12,
     #s13 {
@@ -2058,7 +2184,7 @@
       <div class="feat">
         <div class="feat-icon icon-search" aria-hidden="true"></div>
         <div class="feat-title">Deep Research</div>
-        <div class="feat-desc">LLMs + RAG + agentic web search on live catalogs</div>
+        <div class="feat-desc">Live-catalog RAG; open-source LLM path limits token-cost exposure</div>
       </div>
       <div class="feat">
         <div class="feat-icon icon-integration" aria-hidden="true"></div>
@@ -2202,6 +2328,9 @@
           <li>Usage monitoring and analytics dashboard</li>
           <li>Onboarding, support, and continuous optimisation</li>
         </ul>
+        <div class="offer-price">
+          <div class="offer-price-value">EUR 500-800</div>
+        </div>
       </div>
       <div class="offer-panel">
         <div class="offer-kicker">Enterprise Flex</div>
@@ -2213,6 +2342,9 @@
           <li>Higher session limits and multi-location governance</li>
           <li>Bespoke analytics, SLAs, and dedicated support</li>
         </ul>
+        <div class="offer-price">
+          <div class="offer-price-value">EUR 900+</div>
+        </div>
       </div>
     </div>
   </div>
@@ -2265,6 +2397,53 @@
             <div class="tl-detail">New verticals</div>
             <div class="tl-detail">Croatian and global markets</div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── S10 INVESTMENT ASK ────────────────── -->
+  <div class="slide light" id="s10">
+    <div class="ask-copy">
+      <div class="label">The Ask</div>
+      <h2 class="slide-h">We are raising <span class="ask-count" data-count="100000" data-prefix="€" data-grouped="true">€0</span><br>for <span class="ask-count" data-count="5" data-suffix="%">0%</span> of the company.</h2>
+      <p class="ask-sub">This round funds product development, pilot deployment, and the first commercial rollout with measurable retail traction.</p>
+    </div>
+    <div class="spend-panel">
+      <div class="spend-head">
+        <div class="spend-kicker">Capital Deployment Plan</div>
+        <div class="spend-total">€100,000 total</div>
+      </div>
+      <div class="spend-list">
+        <div class="spend-row">
+          <div class="spend-name">MVP hardware prototype</div>
+          <div class="spend-bar" aria-hidden="true"><span class="spend-fill w30"></span></div>
+          <div class="spend-amount">€30,000</div>
+          <div class="spend-share">30%</div>
+        </div>
+        <div class="spend-row">
+          <div class="spend-name">AI/software development</div>
+          <div class="spend-bar" aria-hidden="true"><span class="spend-fill w35"></span></div>
+          <div class="spend-amount">€35,000</div>
+          <div class="spend-share">35%</div>
+        </div>
+        <div class="spend-row">
+          <div class="spend-name">Pilot installations: 3-5 locations</div>
+          <div class="spend-bar" aria-hidden="true"><span class="spend-fill w15"></span></div>
+          <div class="spend-amount">€15,000</div>
+          <div class="spend-share">15%</div>
+        </div>
+        <div class="spend-row">
+          <div class="spend-name">Go-to-market and sales</div>
+          <div class="spend-bar" aria-hidden="true"><span class="spend-fill w10"></span></div>
+          <div class="spend-amount">€10,000</div>
+          <div class="spend-share">10%</div>
+        </div>
+        <div class="spend-row">
+          <div class="spend-name">Operations, legal, accounting</div>
+          <div class="spend-bar" aria-hidden="true"><span class="spend-fill w10"></span></div>
+          <div class="spend-amount">€10,000</div>
+          <div class="spend-share">10%</div>
         </div>
       </div>
     </div>
