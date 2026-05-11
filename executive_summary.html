@@ -268,21 +268,36 @@
     line-height: 1.28;
   }
 
-  .pricing {
+  .offer-model {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.8mm;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
     margin-top: 2mm;
+    border-top: 1px solid var(--line-soft-light);
+    border-bottom: 1px solid var(--line-soft-light);
   }
 
-  .price-card {
-    background: var(--surface-light);
-    border: 1px solid var(--line-light-soft);
-    padding: 2.5mm;
-    box-shadow: 0 10px 24px rgba(14,21,37,0.04);
+  .offer-card {
+    position: relative;
+    padding: 2.7mm 2.8mm 2.5mm;
+    border-left: 1px solid var(--line-soft-light);
   }
 
-  .tier {
+  .offer-card:first-child {
+    border-left: none;
+  }
+
+  .offer-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 2.8mm;
+    right: 2.8mm;
+    height: 0.7mm;
+    background: var(--line-accent);
+  }
+
+  .offer-kicker {
     display: block;
     font-size: 7pt;
     letter-spacing: 0.1em;
@@ -292,19 +307,27 @@
     font-weight: 500;
   }
 
-  .amount {
-    font-size: 14.5pt;
-    line-height: 0.95;
-    font-weight: 900;
+  .offer-card h3 {
+    margin: 0 0 1.1mm;
+    font-size: 9.1pt;
+    line-height: 1.12;
+    font-weight: 700;
     color: var(--text-on-light);
-    letter-spacing: -0.03em;
   }
 
-  .price-card p {
-    margin-top: 1.1mm;
+  .offer-card p {
     font-size: 6.5pt;
     line-height: 1.24;
     color: var(--text-muted-light);
+  }
+
+  .offer-card ul {
+    margin-top: 1.5mm;
+  }
+
+  .offer-card li {
+    font-size: 6.6pt;
+    line-height: 1.22;
   }
 
   ul {
@@ -459,23 +482,30 @@
 
       <div class="section">
         <div class="kicker">Business Model</div>
-        <h2>Subscription revenue with an additional <span>marketing layer.</span></h2>
-        <p>Tilora is sold as a per-device subscription, with session capacity, support, and analytics scaled by retailer size. A second revenue layer can come from supplier-funded product placement inside the guidance flow.</p>
-        <div class="pricing">
-          <div class="price-card">
-            <span class="tier">Standard</span>
-            <div class="amount">EUR 350-500</div>
-            <p>Up to 5 devices, 1,000 sessions per device, monthly support.</p>
+        <h2>One core offer with an <span>enterprise path.</span></h2>
+        <p>Tilora starts with a launch-ready AI assistant model for retailers, then expands into custom deployments where larger customers need deeper integrations, governance, and support.</p>
+        <div class="offer-model">
+          <div class="offer-card">
+            <span class="offer-kicker">Core Retail Offer</span>
+            <h3>Launch-ready AI assistant</h3>
+            <p>A clear rollout model for retailers that want to start fast, validate store impact, and scale usage across locations.</p>
+            <ul>
+              <li>In-store AI assistant on selected devices</li>
+              <li>Session capacity scaled by location count</li>
+              <li>Usage monitoring and analytics dashboard</li>
+              <li>Onboarding, support, and optimisation</li>
+            </ul>
           </div>
-          <div class="price-card">
-            <span class="tier">Plus</span>
-            <div class="amount">EUR 550-700</div>
-            <p>Up to 20 devices, 2,000 sessions per device, weekly support, advanced analytics.</p>
-          </div>
-          <div class="price-card">
-            <span class="tier">Pro</span>
-            <div class="amount">EUR 700+</div>
-            <p>Unlimited devices, higher session limits, 24/7 support, custom features.</p>
+          <div class="offer-card">
+            <span class="offer-kicker">Enterprise Flex</span>
+            <h3>Custom deployment model</h3>
+            <p>For larger retailers where Tilora needs to match existing systems, workflows, data, and customer journeys.</p>
+            <ul>
+              <li>Custom features and recommendation flows</li>
+              <li>CMS, ERP, inventory, or loyalty integrations</li>
+              <li>Higher session limits and governance</li>
+              <li>Bespoke analytics, SLAs, and dedicated support</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -488,7 +518,7 @@
           <li><strong>Q2 2026:</strong> MVP specification, team formation, legal registration</li>
           <li><strong>Q3 2026:</strong> Device prototype, AI module v1, CMS basics</li>
           <li><strong>Q4 2026:</strong> Pilot across 3-5 Zagreb locations</li>
-          <li><strong>2027+:</strong> Commercial launch, Croatian rollout, regional expansion</li>
+          <li><strong>Q2 2027+:</strong> Commercialization across more retail locations, new verticals, and Croatian and global markets</li>
         </ul>
       </div>
 

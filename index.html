@@ -6,8 +6,10 @@
 <title>Tilora - AI Shopping Assistant</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet">
 <style>
+  /* Reset / Base */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  /* Design Tokens */
   :root {
     --serif: 'DM Sans', sans-serif;
     --sans: 'DM Sans', sans-serif;
@@ -77,6 +79,7 @@
     --pill-text: #4E87D9;
   }
 
+  /* Base Document */
   html, body {
     width: 100vw; height: 100vh;
     min-height: 100vh;
@@ -96,6 +99,7 @@
     margin: 0;
   }
 
+  /* Layout */
   .deck {
     position: fixed;
     inset: 0;
@@ -131,7 +135,7 @@
     color: var(--text-on-light);
   }
 
-  /* ── NAV ─────────────────────────────────── */
+  /* Navigation */
   .nav {
     position: fixed;
     bottom: 2rem;
@@ -185,7 +189,7 @@
     background: var(--nav-arrow-bg-light);
   }
 
-  /* ── LABEL TAG ───────────────────────────── */
+  /* Shared Components */
   .label {
     font-family: var(--mono);
     font-size: var(--fs-label);
@@ -194,6 +198,75 @@
     color: var(--accent-strong);
     margin-bottom: 1.25rem;
   }
+
+  .slide-h {
+    font-family: var(--serif);
+    font-size: var(--fs-display-sm);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+  .slide-h span { color: var(--accent-strong); }
+  .dark .slide-h { color: var(--text-on-dark); }
+  .light .slide-h { color: var(--text-on-light); }
+
+  .slide-source {
+    position: absolute;
+    left: var(--slide-pad-x);
+    right: var(--slide-pad-x);
+    bottom: 4.6rem;
+    z-index: 3;
+    font-family: var(--mono);
+    font-size: clamp(0.72rem, 0.64rem + 0.22vmin, 0.9rem);
+    line-height: 1.45;
+    letter-spacing: 0.04em;
+    color: var(--text-muted-light);
+  }
+  .slide-source a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-accent-soft);
+  }
+  .slide-source a:hover {
+    color: var(--accent-secondary);
+    border-bottom-color: var(--accent-secondary-border);
+  }
+
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: var(--line-accent);
+    transition: width 0.5s ease;
+    z-index: 200;
+  }
+
+  .counter {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    font-family: var(--mono);
+    font-size: clamp(0.85rem, 0.7rem + 0.35vmin, 1.05rem);
+    color: var(--text-muted-dark);
+    z-index: 100;
+    letter-spacing: 0.1em;
+  }
+  body.active-light .counter {
+    color: var(--text-on-light);
+  }
+
+  #s3 .issue-title,
+  #s6 .vp-tag,
+  #s7 .verticals-label,
+  #s9 .offer-kicker,
+  #s11 .tl-quarter,
+  #s12 .team-section-label,
+  #s8 .close-label,
+  #s13 .close-label {
+    font-size: var(--fs-label);
+  }
+
+  /* Slide-Specific Styles */
   /* ═══════════════════════════════════════════
      SLIDE 1 - COVER
   ═══════════════════════════════════════════ */
@@ -345,16 +418,13 @@
     margin-bottom: 0.9rem;
     letter-spacing: -0.04em;
   }
-  #s3.active .issue-card:nth-child(1) .issue-num,
-  #s10.active .gtm-phase:nth-child(1) .phase-num {
+  #s3.active .issue-card:nth-child(1) .issue-num {
     animation: emphasise-number 0.7s ease both;
   }
-  #s3.active .issue-card:nth-child(2) .issue-num,
-  #s10.active .gtm-phase:nth-child(2) .phase-num {
+  #s3.active .issue-card:nth-child(2) .issue-num {
     animation: emphasise-number 0.7s ease 0.12s both;
   }
-  #s3.active .issue-card:nth-child(3) .issue-num,
-  #s10.active .gtm-phase:nth-child(3) .phase-num {
+  #s3.active .issue-card:nth-child(3) .issue-num {
     animation: emphasise-number 0.7s ease 0.24s both;
   }
   #s3 .issue-title {
@@ -970,7 +1040,11 @@
     z-index: 2;
   }
   #s8 .close-label {
-    color: var(--text-muted-light) !important;
+    font-family: var(--mono);
+    letter-spacing: 0.15em;
+    color: var(--text-muted-light);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
   }
 
   /* ═══════════════════════════════════════════
@@ -1059,79 +1133,6 @@
     position: absolute; left: 0;
     color: var(--accent-strong);
     font-size: 16px;
-  }
-
-  /* ═══════════════════════════════════════════
-     SLIDE 10 - GO TO MARKET
-  ═══════════════════════════════════════════ */
-  #s10 {
-    padding: var(--slide-pad-y) var(--slide-pad-x);
-    justify-content: center;
-  }
-  #s10 .gtm-grid {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 0;
-    margin-top: 2.5rem;
-  }
-  #s10 .gtm-phase {
-    padding: var(--card-pad-y) var(--card-pad-x);
-    border-left: 1px solid var(--line-soft-light);
-    position: relative;
-  }
-  #s10 .gtm-phase:first-child { border-left: none; }
-  #s10 .gtm-phase::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; bottom: 0;
-    width: 2px;
-    background: transparent;
-    transition: background 0.3s;
-  }
-  #s10 .gtm-phase:hover::before { background: var(--accent-strong); }
-  #s10 .phase-num {
-    font-family: var(--serif);
-    font-size: 92px;
-    font-weight: 900;
-    color: var(--accent-secondary-line);
-    line-height: 0.92;
-    margin-bottom: 0.65rem;
-    letter-spacing: -0.04em;
-  }
-  #s10 .phase-label {
-    font-family: var(--mono);
-    font-size: var(--fs-label);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent-strong);
-    margin-bottom: 0.5rem;
-  }
-  #s10 .phase-title {
-    font-family: var(--serif);
-    font-size: var(--fs-title-md);
-    font-weight: 700;
-    color: var(--text-on-light);
-    margin-bottom: 1rem;
-    line-height: 1.2;
-  }
-  #s10 .phase-list {
-    list-style: none;
-    display: flex; flex-direction: column; gap: 8px;
-  }
-  #s10 .phase-list li {
-    font-size: var(--fs-body);
-    color: var(--text-soft-light);
-    padding-left: 14px;
-    position: relative;
-    font-weight: 300;
-    line-height: 1.4;
-  }
-  #s10 .phase-list li::before {
-    content: '·';
-    position: absolute; left: 0;
-    color: var(--accent-soft);
-    font-size: 20px;
-    line-height: 1.1;
   }
 
   /* ═══════════════════════════════════════════
@@ -1375,80 +1376,51 @@
     z-index: 2;
   }
 
-  .slide-h {
-    font-family: var(--serif);
-    font-size: var(--fs-display-sm);
-    font-weight: 900;
-    line-height: 1.1;
-    margin-bottom: 0.5rem;
-  }
-  .slide-h span { color: var(--accent-strong); }
-  .dark .slide-h { color: var(--text-on-dark); }
-  .light .slide-h { color: var(--text-on-light); }
-
-  .slide-source {
-    position: absolute;
-    left: var(--slide-pad-x);
-    right: var(--slide-pad-x);
-    bottom: 4.6rem;
-    z-index: 3;
-    font-family: var(--mono);
-    font-size: clamp(0.72rem, 0.64rem + 0.22vmin, 0.9rem);
-    line-height: 1.45;
-    letter-spacing: 0.04em;
-    color: var(--text-muted-light);
-  }
-  .slide-source a {
-    color: inherit;
-    text-decoration: none;
-    border-bottom: 1px solid var(--border-accent-soft);
-  }
-  .slide-source a:hover {
-    color: var(--accent-secondary);
-    border-bottom-color: var(--accent-secondary-border);
+  /* Animation Keyframes */
+  @keyframes emphasise-number {
+    from {
+      opacity: 0;
+      transform: translateY(16px) scale(0.92);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
 
-  #s3 .issue-title,
-  #s6 .vp-tag,
-  #s7 .verticals-label,
-  #s9 .offer-kicker,
-  #s10 .phase-label,
-  #s11 .tl-quarter,
-  #s12 .team-section-label,
-  #s8 .close-label,
-  #s13 .close-label {
-    font-size: var(--fs-label);
+  @keyframes process-line-fill {
+    from {
+      width: 0;
+    }
+    to {
+      width: 75%;
+    }
   }
 
-  /* ── PROGRESS BAR ────────────────────────── */
-  .progress-bar {
-    position: fixed;
-    top: 0; left: 0;
-    height: 2px;
-    background: var(--line-accent);
-    transition: width 0.5s ease;
-    z-index: 200;
+  @keyframes step-pulse {
+    0% {
+      opacity: 0;
+      transform: scale(0.65);
+    }
+    28% {
+      opacity: 0.7;
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.35);
+    }
   }
 
-  /* ── SLIDE COUNTER ───────────────────────── */
-  .counter {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    font-family: var(--mono);
-    font-size: clamp(0.85rem, 0.7rem + 0.35vmin, 1.05rem);
-    color: var(--text-muted-dark);
-    z-index: 100;
-    letter-spacing: 0.1em;
-  }
-  body.active-light .counter {
-    color: var(--text-on-light);
+  @keyframes roadmap-fill {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
   }
 
-  .slide > [style*="padding"] {
-    padding: 0 !important;
-  }
-
+  /* Print Mode */
   html.print-mode,
   body.print-mode {
     width: auto;
@@ -1460,6 +1432,12 @@
 
   body.print-mode {
     user-select: text;
+    --slide-pad-x: clamp(2.3rem, 5.6vw, 8.6vw);
+    --slide-pad-y: clamp(2.8rem, 6vh, 6.4vh);
+    --card-pad-y: clamp(1.95rem, 1.3rem + 1.3vmin, 3rem);
+    --card-pad-x: clamp(1.55rem, 1.08rem + 1.05vmin, 2.45rem);
+    --grid-gap: clamp(1.2rem, 0.85rem + 1.1vmin, 1.95rem);
+    --stack-gap: clamp(1.15rem, 0.8rem + 1.15vmin, 2.05rem);
   }
 
   body.print-mode .deck {
@@ -1480,28 +1458,18 @@
     height: 7.5in;
     min-height: 7.5in;
     max-height: 7.5in;
-    opacity: 1 !important;
+    opacity: 1;
     pointer-events: auto;
     z-index: auto;
     margin: 0;
     overflow: hidden;
-    break-after: page;
-    page-break-after: always;
-    page-break-inside: avoid;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-
-  body.print-mode .slide:last-child {
-    break-after: auto;
-    page-break-after: auto;
   }
 
   body.print-mode .progress-bar,
   body.print-mode .nav,
   body.print-mode .nav-arr,
   body.print-mode .counter {
-    display: none !important;
+    display: none;
   }
 
   body.print-mode *,
@@ -1523,6 +1491,141 @@
     width: 100%;
   }
 
+  body.print-mode .slide-h {
+    margin-bottom: 0.9rem;
+  }
+
+  body.print-mode #s3 .issues-grid,
+  body.print-mode #s5 .steps,
+  body.print-mode #s6 .vp-grid,
+  body.print-mode #s12 .team-cols {
+    gap: calc(var(--grid-gap) * 1.15);
+  }
+
+  body.print-mode #s3 .issue-list,
+  body.print-mode #s6 .vp-list,
+  body.print-mode #s9 .offer-list,
+  body.print-mode #s11 .tl-details {
+    gap: 0.65rem;
+  }
+
+  body.print-mode #s2 .stat-grid {
+    top: 57vh;
+  }
+
+  body.print-mode #s4 .features {
+    top: 64vh;
+  }
+
+  @media print {
+    @page {
+      size: 13.333in 7.5in;
+      margin: 0;
+    }
+
+    html, body {
+      width: 13.333in !important;
+      height: auto !important;
+      overflow: visible !important;
+      background: #fff !important;
+    }
+
+    body {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      --slide-pad-x: clamp(2.3rem, 5.6vw, 8.6vw);
+      --slide-pad-y: clamp(2.8rem, 6vh, 6.4vh);
+      --card-pad-y: clamp(1.95rem, 1.3rem + 1.3vmin, 3rem);
+      --card-pad-x: clamp(1.55rem, 1.08rem + 1.05vmin, 2.45rem);
+      --grid-gap: clamp(1.2rem, 0.85rem + 1.1vmin, 1.95rem);
+      --stack-gap: clamp(1.15rem, 0.8rem + 1.15vmin, 2.05rem);
+    }
+
+    .deck {
+      position: static;
+      width: 13.333in !important;
+      height: auto !important;
+      overflow: visible !important;
+    }
+
+    .slide {
+      position: relative !important;
+      display: flex !important;
+      width: 13.333in !important;
+      height: 7.5in !important;
+      min-height: 7.5in !important;
+      max-height: 7.5in !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      /* Legacy page-break rules remain as print-engine fallbacks. */
+      break-after: page !important;
+      page-break-after: always !important;
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+      overflow: hidden !important;
+    }
+
+    .slide:last-child {
+      break-after: auto !important;
+      page-break-after: auto !important;
+    }
+
+    .slide-h {
+      margin-bottom: 0.9rem !important;
+    }
+
+    #s3 .issues-grid,
+    #s5 .steps,
+    #s6 .vp-grid,
+    #s12 .team-cols {
+      gap: calc(var(--grid-gap) * 1.15) !important;
+    }
+
+    #s3 .issue-list,
+    #s6 .vp-list,
+    #s9 .offer-list,
+    #s11 .tl-details {
+      gap: 0.65rem !important;
+    }
+
+    #s2 .stat-grid {
+      top: 57vh !important;
+    }
+
+    #s4 .features {
+      top: 64vh !important;
+    }
+
+    #s4 .solution-visual {
+      aspect-ratio: 3 / 2 !important;
+      height: auto !important;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+
+    #s4 .solution-visual::before,
+    #s4 .solution-visual::after {
+      display: none !important;
+    }
+
+    #s4 .solution-visual img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center center !important;
+      filter: none !important;
+    }
+
+    .progress-bar,
+    .nav,
+    .nav-arr,
+    .counter {
+      display: none !important;
+    }
+  }
+
+  /* Capture Mode */
   html.capture-mode,
   body.capture-mode {
     overflow: hidden;
@@ -1543,7 +1646,7 @@
   body.capture-mode .nav,
   body.capture-mode .nav-arr,
   body.capture-mode .counter {
-    display: none !important;
+    display: none;
   }
 
   body.capture-mode *,
@@ -1607,12 +1710,12 @@
   }
 
   #s8 .close-label {
-    position: absolute !important;
+    position: absolute;
     top: 22vh;
     left: var(--slide-pad-x);
     right: var(--slide-pad-x);
     z-index: 2;
-    margin: 0 !important;
+    margin: 0;
   }
   #s8 .big-text {
     position: absolute;
@@ -1666,51 +1769,8 @@
     margin: 0;
   }
 
-  @keyframes emphasise-number {
-    from {
-      opacity: 0;
-      transform: translateY(16px) scale(0.92);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  @keyframes process-line-fill {
-    from {
-      width: 0;
-    }
-    to {
-      width: 75%;
-    }
-  }
-
-  @keyframes step-pulse {
-    0% {
-      opacity: 0;
-      transform: scale(0.65);
-    }
-    28% {
-      opacity: 0.7;
-    }
-    100% {
-      opacity: 0;
-      transform: scale(1.35);
-    }
-  }
-
-  @keyframes roadmap-fill {
-    from {
-      width: 0;
-    }
-    to {
-      width: 100%;
-    }
-  }
-
-  /* RESPONSIVE tweaks */
-  @media (max-width: 1360px), (max-height: 900px) {
+  /* Responsive Rules */
+  @media screen and (max-width: 1360px), screen and (max-height: 900px) {
     :root {
       --slide-pad-x: clamp(1.6rem, 4vw, 6vw);
       --slide-pad-y: clamp(2rem, 4.5vh, 5vh);
@@ -1738,9 +1798,9 @@
     }
   }
 
-  @media (max-width: 1024px) {
+  @media screen and (max-width: 1024px) {
     #s2 .stat-grid, #s3 .issues-grid, #s4 .features,
-    #s6 .vp-grid, #s9 .offer-grid, #s10 .gtm-grid, #s12 .team-cols {
+    #s6 .vp-grid, #s9 .offer-grid, #s12 .team-cols {
       grid-template-columns: 1fr;
       gap: var(--stack-gap);
     }
@@ -1779,7 +1839,29 @@
     }
   }
 
-  @media (max-width: 900px), (max-height: 760px) {
+  @media screen and (max-width: 900px), screen and (max-height: 760px) {
+    .slide {
+      overflow-y: auto;
+    }
+
+    #s2,
+    #s3,
+    #s4,
+    #s5,
+    #s6,
+    #s7,
+    #s8,
+    #s9,
+    #s11,
+    #s12,
+    #s13 {
+      justify-content: flex-start;
+    }
+
+    #s2 {
+      gap: var(--stack-gap);
+    }
+
     #s2,
     #s4,
     #s8,
@@ -1787,14 +1869,10 @@
       display: flex;
       padding: var(--slide-pad-y) var(--slide-pad-x);
     }
-    #s2 {
-      justify-content: center;
-      gap: var(--stack-gap);
-    }
+
     #s4,
     #s8,
     #s13 {
-      justify-content: center;
       gap: clamp(1rem, 0.7rem + 1.2vmin, 2rem);
     }
     #s2 > div:first-child,
@@ -1809,7 +1887,7 @@
     #s13 h2,
     #s13 .close-sub,
     #s13 .close-line {
-      position: static !important;
+      position: static;
       top: auto;
       left: auto;
       right: auto;
@@ -1862,7 +1940,7 @@
     }
   }
 
-  @media (max-width: 700px), (max-height: 680px) {
+  @media screen and (max-width: 700px), screen and (max-height: 680px) {
     #s5 .steps,
     #s11 .tl-items {
       grid-template-columns: 1fr;
@@ -1876,6 +1954,7 @@
       transform: none;
     }
   }
+
 </style>
 </head>
 <body>
@@ -1899,7 +1978,7 @@
 
   <!-- ── S2 THE PROBLEM ─────────────────────── -->
   <div class="slide light" id="s2">
-    <div style="padding: 5vh 8vw 0;">
+    <div>
       <div class="label">The Problem</div>
       <h2 class="slide-h">The store experience<br>is <span>broken.</span></h2>
       <p class="problem-copy">In high-consideration purchases - electronics, appliances, automotive - customers arrive with questions. The result: <span class="accent">lost sales</span>, <span class="accent">abandoned carts</span>, <span class="accent">customers who leave to "think about it" and never return</span>.</p>
@@ -1923,11 +2002,11 @@
 
   <!-- ── S3 ISSUES ──────────────────────────── -->
   <div class="slide light" id="s3">
-    <div style="padding: 5vh 8vw 0;">
+    <div>
       <div class="label">Issues in the Wild</div>
       <h2 class="slide-h">Three pain points.<br>One <span>solution.</span></h2>
     </div>
-    <div style="padding: 0 8vw;" class="issues-grid">
+    <div class="issues-grid">
       <div class="issue-card">
         <div class="issue-num">01</div>
         <div class="issue-title">Customer Experience</div>
@@ -1962,15 +2041,15 @@
 
   <!-- ── S4 SOLUTION ────────────────────────── -->
   <div class="slide light" id="s4">
-    <div class="solution-copy" style="padding: 5vh 8vw 2rem;">
+    <div class="solution-copy">
       <div class="label">The Solution</div>
       <h2 class="hero-text">An AI expert,<br>available in <span>every aisle.</span></h2>
-      <p class="hero-sub">Tilora is deployed on physical devices in store. Customers interact by voice or text to receive instant, deeply researched product guidance - <span class="accent">no app, no waiting</span>.</p>
+      <p class="hero-sub">Tilora is deployed on physical devices in store. Customers interact by voice or text to receive deeply researched product guidance.</p>
     </div>
     <div class="solution-visual" aria-hidden="true">
       <img src="tilora-slide4-device.png" alt="">
     </div>
-    <div style="padding: 0 8vw;" class="features">
+    <div class="features">
       <div class="feat">
         <div class="feat-icon icon-voice" aria-hidden="true"></div>
         <div class="feat-title">Voice &amp; Text</div>
@@ -1991,11 +2070,11 @@
 
   <!-- ── S5 HOW IT WORKS ────────────────────── -->
   <div class="slide light" id="s5">
-    <div style="padding: 5vh 8vw 0;">
+    <div>
       <div class="label">How It Works</div>
       <h2 class="slide-h">Simple to use.<br><span>Powerful</span> underneath.</h2>
     </div>
-    <div style="padding: 0 8vw;" class="steps">
+    <div class="steps">
       <div class="step">
         <div class="step-dot">1</div>
         <div class="step-title">Customer Interacts</div>
@@ -2021,11 +2100,11 @@
 
   <!-- ── S6 VALUE PROP ──────────────────────── -->
   <div class="slide light" id="s6">
-    <div style="padding: 5vh 8vw 0;">
+    <div>
       <div class="label">Value Proposition</div>
       <h2 class="slide-h">Three ways Tilora<br>creates <span>value.</span></h2>
     </div>
-    <div style="padding: 0 8vw;" class="vp-grid">
+    <div class="vp-grid">
       <div class="vp-card">
         <div class="vp-icon icon-assistant" aria-hidden="true"></div>
         <div class="vp-tag">Customer Experience</div>
@@ -2064,11 +2143,11 @@
 
   <!-- ── S7 MARKET ──────────────────────────── -->
   <div class="slide light" id="s7">
-    <div style="padding: 5vh 8vw 0;">
+    <div>
       <div class="label">Market Opportunity</div>
       <h2 class="slide-h">A large,<br><span>fast-moving</span> market.</h2>
     </div>
-    <div style="padding: 0 8vw;">
+    <div>
       <div class="market-layout">
         <div class="market-copy">
           <p class="market-message">The market is growing, and retailers are already moving.</p>
@@ -2094,7 +2173,6 @@
           <div class="vert-pill">Specialised Retail</div>
         </div>
       </div>
-      <p class="slide-source">Source: <a href="https://www.marketgrowthreports.com/market-reports/artificial-intelligence-in-retail-market-101275" target="_blank" rel="noreferrer">Market Growth Reports</a></p>
     </div>
   </div>
 
@@ -2102,18 +2180,18 @@
   <div class="slide light" id="s8">
     <span class="bracket left">{</span>
     <span class="bracket right">}</span>
-    <p class="close-label" style="font-family:var(--mono);letter-spacing:.15em;color:var(--text-muted-light);text-transform:uppercase;margin-bottom:2rem;">But locally</p>
+    <p class="close-label">But locally</p>
     <h2 class="big-text">Outdated webshops.<br>Uninformed staff.<br><span>Unsatisfied customers.</span></h2>
     <p class="sub">The Croatian market is ready - and no one has filled this gap yet.</p>
   </div>
 
   <!-- ── S9 CUSTOMER APPROACH ───────────────── -->
   <div class="slide light" id="s9">
-    <div style="padding: 5vh 8vw 0;">
+    <div>
       <div class="label">Business Plan</div>
       <h2 class="slide-h">One core offer.<br><span>Built to scale.</span></h2>
     </div>
-    <div style="padding: 0 8vw;" class="offer-grid">
+    <div class="offer-grid">
       <div class="offer-panel">
         <div class="offer-kicker">Core Retail Offer</div>
         <div class="offer-title">Launch-ready AI assistant</div>
@@ -2141,11 +2219,11 @@
 
   <!-- ── S11 ROADMAP ────────────────────────── -->
   <div class="slide light" id="s11">
-    <div style="padding: 5vh 8vw 0;">
+    <div>
       <div class="label">Roadmap</div>
       <h2 class="slide-h">How we aim<br>to <span>scale.</span></h2>
     </div>
-    <div style="padding: 0 8vw;" class="timeline">
+    <div class="timeline">
       <div class="tl-track"><div class="tl-fill"></div></div>
       <div class="tl-items">
         <div class="tl-item active">
@@ -2194,11 +2272,11 @@
 
   <!-- ── S12 TEAM ───────────────────────────── -->
   <div class="slide light" id="s12">
-    <div style="padding: 5vh 8vw 0;">
+    <div>
       <div class="label">The Team</div>
       <h2 class="slide-h">Building the <span>vision.</span></h2>
     </div>
-    <div style="padding: 0 8vw;" class="team-cols">
+    <div class="team-cols">
       <div>
         <div class="team-section-label">Management</div>
         <div class="team-members">
@@ -2238,178 +2316,229 @@
 <div class="counter" id="counter"></div>
 
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const isPrintMode = params.has('print');
-  const isCaptureMode = params.has('capture');
-  const slides = document.querySelectorAll('.slide');
-  const dots = document.getElementById('nav-dots');
-  const counter = document.getElementById('counter');
-  const progress = document.getElementById('progress');
-  let cur = 0;
+  (() => {
+    'use strict';
 
-  function isSlideVisuallyLight(slide) {
-    return slide.classList.contains('light');
-  }
+    const params = new URLSearchParams(window.location.search);
+    const isPrintMode = params.has('print');
+    const isCaptureMode = params.has('capture');
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const dots = document.getElementById('nav-dots');
+    const counter = document.getElementById('counter');
+    const progress = document.getElementById('progress');
+    const prevButton = document.getElementById('prev');
+    const nextButton = document.getElementById('next');
+    const countFrames = new WeakMap();
 
-  function syncActiveLight() {
-    document.body.classList.toggle('active-light', isSlideVisuallyLight(slides[cur]));
-  }
+    let currentSlide = 0;
+    let touchStartX = 0;
 
-  function formatAnimatedValue(node, value) {
-    const prefix = node.dataset.prefix || '';
-    const suffix = node.dataset.suffix || '';
-    const roundedValue = Math.round(value);
-    const numberText = node.dataset.grouped === 'true'
-      ? roundedValue.toLocaleString('en-US')
-      : roundedValue.toString();
-    return prefix + numberText + suffix;
-  }
-
-  function countEase(progressRatio) {
-    if (progressRatio < 0.9) {
-      return 0.96 * (1 - Math.pow(1 - (progressRatio / 0.9), 3.2));
+    function padSlideNumber(value) {
+      return value.toString().padStart(2, '0');
     }
-    const tail = (progressRatio - 0.9) / 0.1;
-    return 0.96 + (1 - Math.pow(1 - tail, 2)) * 0.04;
-  }
 
-  function countNodesForSlide(slide) {
-    return slide.querySelectorAll('[data-count]');
-  }
+    function getCounterText(index) {
+      return padSlideNumber(index + 1) + ' / ' + padSlideNumber(slides.length);
+    }
 
-  function resetCountNodes(nodes) {
-    nodes.forEach(node => {
-      if (node._countFrame) cancelAnimationFrame(node._countFrame);
-      node._countFrame = null;
-      node.textContent = formatAnimatedValue(node, 0);
-      node.classList.remove('is-counting');
-    });
-  }
+    function isSlideVisuallyLight(slide) {
+      return slide.classList.contains('light');
+    }
 
-  function animateCountNodes(nodes) {
-    nodes.forEach((node, index) => {
-      if (node._countFrame) cancelAnimationFrame(node._countFrame);
-      node.textContent = formatAnimatedValue(node, 0);
-      node.classList.add('is-counting');
+    function syncActiveLight() {
+      document.body.classList.toggle('active-light', isSlideVisuallyLight(slides[currentSlide]));
+    }
 
-      const target = Number.parseInt(node.dataset.count || '0', 10);
-      const duration = 1450 + (index * 180);
-      const start = performance.now();
+    function updateDeckChrome() {
+      counter.textContent = getCounterText(currentSlide);
+      progress.style.width = ((currentSlide + 1) / slides.length * 100) + '%';
 
-      const tick = now => {
-        const progressRatio = Math.min((now - start) / duration, 1);
-        const eased = countEase(progressRatio);
-        node.textContent = formatAnimatedValue(node, target * eased);
+      Array.from(dots.children).forEach((dot, index) => {
+        dot.classList.toggle('on', index === currentSlide);
+      });
+    }
 
-        if (progressRatio < 1) {
-          node._countFrame = requestAnimationFrame(tick);
-          return;
+    function formatAnimatedValue(node, value) {
+      const prefix = node.dataset.prefix || '';
+      const suffix = node.dataset.suffix || '';
+      const roundedValue = Math.round(value);
+      const numberText = node.dataset.grouped === 'true'
+        ? roundedValue.toLocaleString('en-US')
+        : roundedValue.toString();
+      return prefix + numberText + suffix;
+    }
+
+    function countEase(progressRatio) {
+      if (progressRatio < 0.9) {
+        return 0.96 * (1 - Math.pow(1 - (progressRatio / 0.9), 3.2));
+      }
+
+      const tail = (progressRatio - 0.9) / 0.1;
+      return 0.96 + (1 - Math.pow(1 - tail, 2)) * 0.04;
+    }
+
+    function countNodesForSlide(slide) {
+      return slide.querySelectorAll('[data-count]');
+    }
+
+    function cancelCountFrame(node) {
+      const frame = countFrames.get(node);
+      if (frame) cancelAnimationFrame(frame);
+      countFrames.delete(node);
+    }
+
+    function resetCountNodes(nodes) {
+      nodes.forEach(node => {
+        cancelCountFrame(node);
+        node.textContent = formatAnimatedValue(node, 0);
+        node.classList.remove('is-counting');
+      });
+    }
+
+    function animateCountNodes(nodes) {
+      nodes.forEach((node, index) => {
+        cancelCountFrame(node);
+        node.textContent = formatAnimatedValue(node, 0);
+        node.classList.add('is-counting');
+
+        const target = Number.parseInt(node.dataset.count || '0', 10);
+        const duration = 1450 + (index * 180);
+        const start = performance.now();
+
+        function tick(now) {
+          const progressRatio = Math.min((now - start) / duration, 1);
+          const eased = countEase(progressRatio);
+          node.textContent = formatAnimatedValue(node, target * eased);
+
+          if (progressRatio < 1) {
+            countFrames.set(node, requestAnimationFrame(tick));
+            return;
+          }
+
+          node.textContent = formatAnimatedValue(node, target);
+          node.classList.remove('is-counting');
+          countFrames.delete(node);
         }
 
+        countFrames.set(node, requestAnimationFrame(tick));
+      });
+    }
+
+    function setCountNodesToFinal(nodes) {
+      nodes.forEach(node => {
+        cancelCountFrame(node);
+        const target = Number.parseInt(node.dataset.count || '0', 10);
         node.textContent = formatAnimatedValue(node, target);
         node.classList.remove('is-counting');
-        node._countFrame = null;
-      };
+      });
+    }
 
-      node._countFrame = requestAnimationFrame(tick);
-    });
-  }
+    function resetSlideState(slide) {
+      const nodes = countNodesForSlide(slide);
+      if (nodes.length) resetCountNodes(nodes);
+    }
 
-  function setCountNodesToFinal(nodes) {
-    nodes.forEach(node => {
-      if (node._countFrame) cancelAnimationFrame(node._countFrame);
-      const target = Number.parseInt(node.dataset.count || '0', 10);
-      node.textContent = formatAnimatedValue(node, target);
-      node.classList.remove('is-counting');
-      node._countFrame = null;
-    });
-  }
+    function runSlideAnimations(slide) {
+      const nodes = countNodesForSlide(slide);
+      if (nodes.length) animateCountNodes(nodes);
+    }
 
-  function resetSlideState(slide) {
-    const nodes = countNodesForSlide(slide);
-    if (nodes.length) resetCountNodes(nodes);
-  }
+    function initialSlide() {
+      const raw = params.get('slide') || window.location.hash.replace(/^#s?/i, '');
+      const slideNumber = Number.parseInt(raw, 10);
+      return Number.isInteger(slideNumber) && slideNumber >= 1 && slideNumber <= slides.length
+        ? slideNumber - 1
+        : 0;
+    }
 
-  function runSlideAnimations(slide) {
-    const nodes = countNodesForSlide(slide);
-    if (nodes.length) animateCountNodes(nodes);
-  }
+    function preparePrintMode() {
+      document.documentElement.classList.add('print-mode');
+      document.body.classList.add('print-mode');
 
-  function preparePrintMode() {
-    document.documentElement.classList.add('print-mode');
-    document.body.classList.add('print-mode');
-    slides.forEach(slide => {
-      slide.classList.add('active');
-      setCountNodesToFinal(countNodesForSlide(slide));
-    });
-  }
+      slides.forEach(slide => {
+        slide.classList.add('active');
+        setCountNodesToFinal(countNodesForSlide(slide));
+      });
+    }
 
-  function prepareCaptureMode() {
-    document.documentElement.classList.add('capture-mode');
-    document.body.classList.add('capture-mode');
-    document.documentElement.style.setProperty('--capture-width', `${window.outerWidth}px`);
-    document.documentElement.style.setProperty('--capture-height', `${window.outerHeight}px`);
-    cur = initialSlide();
+    function prepareCaptureMode() {
+      document.documentElement.classList.add('capture-mode');
+      document.body.classList.add('capture-mode');
+      document.documentElement.style.setProperty('--capture-width', `${window.outerWidth}px`);
+      document.documentElement.style.setProperty('--capture-height', `${window.outerHeight}px`);
 
-    slides.forEach((slide, index) => {
-      slide.classList.toggle('active', index === cur);
-    });
+      currentSlide = initialSlide();
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === currentSlide);
+      });
 
-    syncActiveLight();
-    setCountNodesToFinal(countNodesForSlide(slides[cur]));
-    counter.textContent = (cur + 1).toString().padStart(2,'0') + ' / ' + slides.length.toString().padStart(2,'0');
-    progress.style.width = ((cur + 1) / slides.length * 100) + '%';
-  }
+      syncActiveLight();
+      setCountNodesToFinal(countNodesForSlide(slides[currentSlide]));
+      updateDeckChrome();
+    }
 
-  function go(n) {
-    resetSlideState(slides[cur]);
-    slides[cur].classList.remove('active');
-    dots.children[cur].classList.remove('on');
-    cur = (n + slides.length) % slides.length;
-    slides[cur].classList.add('active');
-    dots.children[cur].classList.add('on');
-    syncActiveLight();
-    counter.textContent = (cur + 1).toString().padStart(2,'0') + ' / ' + slides.length.toString().padStart(2,'0');
-    progress.style.width = ((cur + 1) / slides.length * 100) + '%';
-    runSlideAnimations(slides[cur]);
-  }
+    function go(nextSlide) {
+      resetSlideState(slides[currentSlide]);
+      slides[currentSlide].classList.remove('active');
 
-  function initialSlide() {
-    const raw = params.get('slide') || window.location.hash.replace(/^#s?/i, '');
-    const n = Number.parseInt(raw, 10);
-    return Number.isInteger(n) && n >= 1 && n <= slides.length ? n - 1 : 0;
-  }
+      currentSlide = (nextSlide + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
 
-  if (isPrintMode) {
-    preparePrintMode();
-  } else if (isCaptureMode) {
-    prepareCaptureMode();
-  } else {
-    slides.forEach((_, i) => {
-      const d = document.createElement('div');
-      d.className = 'dot' + (i === 0 ? ' on' : '');
-      d.addEventListener('click', () => go(i));
-      dots.appendChild(d);
-    });
+      syncActiveLight();
+      updateDeckChrome();
+      runSlideAnimations(slides[currentSlide]);
+    }
 
-    document.getElementById('prev').addEventListener('click', () => go(cur - 1));
-    document.getElementById('next').addEventListener('click', () => go(cur + 1));
+    function buildDots() {
+      slides.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.className = 'dot' + (index === 0 ? ' on' : '');
+        dot.addEventListener('click', () => go(index));
+        dots.appendChild(dot);
+      });
+    }
 
-    document.addEventListener('keydown', e => {
-      if (['BUTTON', 'INPUT', 'SELECT', 'TEXTAREA', 'A'].includes(e.target.tagName)) return;
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') go(cur + 1);
-      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(cur - 1);
-    });
+    function handleKeydown(event) {
+      if (['BUTTON', 'INPUT', 'SELECT', 'TEXTAREA', 'A'].includes(event.target.tagName)) return;
+      if (event.key === 'ArrowRight' || event.key === 'ArrowDown' || event.key === ' ') go(currentSlide + 1);
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') go(currentSlide - 1);
+    }
 
-    let tx = 0;
-    document.addEventListener('touchstart', e => tx = e.touches[0].clientX);
-    document.addEventListener('touchend', e => {
-      const dx = tx - e.changedTouches[0].clientX;
-      if (Math.abs(dx) > 40) go(dx > 0 ? cur + 1 : cur - 1);
-    });
+    function handleTouchStart(event) {
+      touchStartX = event.touches[0].clientX;
+    }
 
-    go(initialSlide());
-  }
+    function handleTouchEnd(event) {
+      const deltaX = touchStartX - event.changedTouches[0].clientX;
+      if (Math.abs(deltaX) > 40) go(deltaX > 0 ? currentSlide + 1 : currentSlide - 1);
+    }
+
+    function bindNavigation() {
+      prevButton.addEventListener('click', () => go(currentSlide - 1));
+      nextButton.addEventListener('click', () => go(currentSlide + 1));
+      document.addEventListener('keydown', handleKeydown);
+      document.addEventListener('touchstart', handleTouchStart);
+      document.addEventListener('touchend', handleTouchEnd);
+    }
+
+    function init() {
+      if (isPrintMode) {
+        preparePrintMode();
+        return;
+      }
+
+      if (isCaptureMode) {
+        prepareCaptureMode();
+        return;
+      }
+
+      buildDots();
+      bindNavigation();
+      go(initialSlide());
+    }
+
+    init();
+  })();
 </script>
 </body>
 </html>
